@@ -28,6 +28,7 @@ linters:
     - goimports
     - gosec
     - gosimple
+    - govet
     - importas
     - ineffassign
     - megacheck
@@ -41,7 +42,6 @@ linters:
   disable:
     - deadcode
     - errcheck
-    - govet
     - staticcheck
     - structcheck
     - unused
