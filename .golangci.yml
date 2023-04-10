@@ -36,6 +36,7 @@ linters:
     - predeclared
     - revive
     - typecheck
+    - unconvert
     - unparam
   disable:
     - deadcode
@@ -53,3 +54,6 @@ linters-settings:
     - standard
     - default
     - prefix(github.com/shirou)
+
+run:
+  timeout: 5m
