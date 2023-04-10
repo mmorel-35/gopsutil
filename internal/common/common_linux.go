@@ -77,7 +77,8 @@ func BootTimeWithContext(ctx context.Context) (uint64, error) {
 		}
 
 		currentTime := time.Now().UnixNano() / int64(time.Second)
-		t := currentTime - info.Uptime
+		//nolint: unconvert
+		t := currentTime - int64(info.Uptime)
 		return uint64(t), nil
 	}
 	if err != nil {
