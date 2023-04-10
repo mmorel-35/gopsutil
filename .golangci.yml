@@ -29,6 +29,7 @@ linters:
     - gosec
     - gosimple
     - importas
+    - ineffassign
     - megacheck
     - misspell
     - nakedret
@@ -41,7 +42,6 @@ linters:
     - deadcode
     - errcheck
     - govet
-    - ineffassign
     - staticcheck
     - structcheck
     - unused
