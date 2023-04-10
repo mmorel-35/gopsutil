@@ -27,7 +27,7 @@ type Process struct {
 	name           string
 	status         string
 	parent         int32
-	parentMutex    sync.RWMutex // for windows ppid cache
+	parentMutex    sync.RWMutex //nolint:unused // for windows ppid cache
 	numCtxSwitches *NumCtxSwitchesStat
 	uids           []int32
 	gids           []int32
