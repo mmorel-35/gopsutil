@@ -477,10 +477,6 @@ func connectionsPidMaxWithoutUidsWithContext(ctx context.Context, kind string, p
 	return statsFromInodesWithContext(ctx, root, pid, tmap, inodes, skipUids)
 }
 
-func statsFromInodes(root string, pid int32, tmap []netConnectionKindType, inodes map[string][]inodeMap, skipUids bool) ([]ConnectionStat, error) {
-	return statsFromInodesWithContext(context.Background(), root, pid, tmap, inodes, skipUids)
-}
-
 func statsFromInodesWithContext(ctx context.Context, root string, pid int32, tmap []netConnectionKindType, inodes map[string][]inodeMap, skipUids bool) ([]ConnectionStat, error) {
 	dupCheckMap := make(map[string]struct{})
 	var ret []ConnectionStat
@@ -750,11 +746,6 @@ func ReverseWithContext(ctx context.Context, s []byte) []byte {
 		s[i], s[j] = s[j], s[i]
 	}
 	return s
-}
-
-// parseIPv6HexString parse array of bytes to IPv6 string
-func parseIPv6HexString(src []byte) (net.IP, error) {
-	return parseIPv6HexStringWithContext(context.Background(), src)
 }
 
 func parseIPv6HexStringWithContext(ctx context.Context, src []byte) (net.IP, error) {
