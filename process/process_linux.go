@@ -230,7 +230,7 @@ func (p *Process) RlimitUsageWithContext(ctx context.Context, gatherUsed bool) (
 		case RLIMIT_STACK:
 			rs.Used = p.memInfo.Stack
 		case RLIMIT_RSS:
-			rs.Used = uint64(p.memInfo.RSS)
+			rs.Used = p.memInfo.RSS
 		case RLIMIT_NOFILE:
 			n, err := p.NumFDsWithContext(ctx)
 			if err != nil {
@@ -661,7 +661,7 @@ func (p *Process) fillFromExeWithContext() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(exe), nil
+	return exe, nil
 }
 
 // Get cmdline from /proc/(pid)/cmdline
@@ -1079,7 +1079,7 @@ func (p *Process) fillFromTIDStatWithContext(ctx context.Context, tid int32) (ui
 	if err != nil {
 		return 0, 0, nil, 0, 0, 0, nil, err
 	}
-	ctime := (t / uint64(clockTicks)) + uint64(bootTime)
+	ctime := (t / uint64(clockTicks)) + bootTime
 	createTime := int64(ctime * 1000)
 
 	rtpriority, err := strconv.ParseInt(fields[18], 10, 32)
