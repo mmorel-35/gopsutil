@@ -226,9 +226,9 @@ func (p *Process) RlimitUsageWithContext(ctx context.Context, gatherUsed bool) (
 			}
 			rs.Used = uint64(times.User + times.System)
 		case RLIMIT_DATA:
-			rs.Used = uint64(p.memInfo.Data)
+			rs.Used = p.memInfo.Data
 		case RLIMIT_STACK:
-			rs.Used = uint64(p.memInfo.Stack)
+			rs.Used = p.memInfo.Stack
 		case RLIMIT_RSS:
 			rs.Used = uint64(p.memInfo.RSS)
 		case RLIMIT_NOFILE:
@@ -238,9 +238,9 @@ func (p *Process) RlimitUsageWithContext(ctx context.Context, gatherUsed bool) (
 			}
 			rs.Used = uint64(n)
 		case RLIMIT_MEMLOCK:
-			rs.Used = uint64(p.memInfo.Locked)
+			rs.Used = p.memInfo.Locked
 		case RLIMIT_AS:
-			rs.Used = uint64(p.memInfo.VMS)
+			rs.Used = p.memInfo.VMS
 		case RLIMIT_LOCKS:
 			// TODO we can get the used value from /proc/$pid/locks. But linux doesn't enforce it, so not a high priority.
 		case RLIMIT_SIGPENDING:
@@ -650,7 +650,7 @@ func (p *Process) fillFromCwdWithContext() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(cwd), nil
+	return cwd, nil
 }
 
 // Get exe from /proc/(pid)/exe
@@ -1183,7 +1183,7 @@ func splitProcStat(content []byte) []string {
 	name := content[nameStart+1 : nameEnd]
 	pid := strings.TrimSpace(string(content[:nameStart]))
 	fields := make([]string, 3, len(restFields)+3)
-	fields[1] = string(pid)
+	fields[1] = pid
 	fields[2] = string(name)
 	fields = append(fields, restFields...)
 	return fields
