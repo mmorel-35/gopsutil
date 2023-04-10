@@ -341,8 +341,9 @@ func SwapMemoryWithContext(ctx context.Context) (*SwapMemoryStat, error) {
 		return nil, err
 	}
 	localUnit := uint64(sysinfo.Unit)
-	//nolint:unconvert	
+	//nolint:unconvert
 	localTotalswap := uint64(sysinfo.Totalswap)
+	//nolint:unconvert
 	localFreeswap := uint64(sysinfo.Freeswap)
 	ret := &SwapMemoryStat{
 		Total: localTotalswap * localUnit,
