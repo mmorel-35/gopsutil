@@ -340,9 +340,13 @@ func SwapMemoryWithContext(ctx context.Context) (*SwapMemoryStat, error) {
 	if err := unix.Sysinfo(sysinfo); err != nil {
 		return nil, err
 	}
+	localUnit := uint64(sysinfo.Unit)
+	//nolint:unconvert	
+	localTotalswap := uint64(sysinfo.Totalswap)
+	localFreeswap := uint64(sysinfo.Freeswap)
 	ret := &SwapMemoryStat{
-		Total: sysinfo.Totalswap * uint64(sysinfo.Unit),
-		Free:  sysinfo.Freeswap * uint64(sysinfo.Unit),
+		Total: localTotalswap * localUnit,
+		Free:  localFreeswap * localUnit,
 	}
 	ret.Used = ret.Total - ret.Free
 	// check Infinity
