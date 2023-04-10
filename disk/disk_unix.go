@@ -21,13 +21,13 @@ func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {
 	ret := &UsageStat{
 		Path:        unescapeFstab(path),
 		Fstype:      getFsType(stat),
-		Total:       (uint64(stat.Blocks) * uint64(bsize)),
-		Free:        (uint64(stat.Bavail) * uint64(bsize)),
-		InodesTotal: (uint64(stat.Files)),
-		InodesFree:  (uint64(stat.Ffree)),
+		Total:       (stat.Blocks * bsize),
+		Free:        (stat.Bavail) * bsize),
+		InodesTotal: (stat.Files)),
+		InodesFree:  (stat.Ffree)),
 	}
 
-	ret.Used = (uint64(stat.Blocks) - uint64(stat.Bfree)) * uint64(bsize)
+	ret.Used = (stat.Blocks - stat.Bfree) * bsize
 
 	if (ret.Used + ret.Free) == 0 {
 		ret.UsedPercent = 0
