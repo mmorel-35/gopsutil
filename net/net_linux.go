@@ -761,10 +761,6 @@ func parseIPv6HexStringWithContext(ctx context.Context, src []byte) (net.IP, err
 	return net.IP(buf), nil
 }
 
-func processInet(file string, kind netConnectionKindType, inodes map[string][]inodeMap, filterPid int32) ([]connTmp, error) {
-	return processInetWithContext(context.Background(), file, kind, inodes, filterPid)
-}
-
 func processInetWithContext(ctx context.Context, file string, kind netConnectionKindType, inodes map[string][]inodeMap, filterPid int32) ([]connTmp, error) {
 	if strings.HasSuffix(file, "6") && !common.PathExists(file) {
 		// IPv6 not supported, return empty.
