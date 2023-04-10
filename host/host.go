@@ -6,7 +6,6 @@ import (
 	"errors"
 	"os"
 	"runtime"
-	"time"
 
 	"github.com/shirou/gopsutil/v3/internal/common"
 )
