@@ -70,7 +70,8 @@ func getTerminalMap() (map[uint64]string, error) {
 		if err = unix.Stat(name, &stat); err != nil {
 			return nil, err
 		}
-		rdev := stat.Rdev
+		// nolint:unconvert
+		rdev := uint64(stat.Rdev)
 		ret[rdev] = strings.Replace(name, "/dev", "", -1)
 	}
 	return ret, nil
