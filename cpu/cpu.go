@@ -54,7 +54,7 @@ type lastPercent struct {
 
 var (
 	lastCPUPercent lastPercent
-	invoke         common.Invoker = common.Invoke{}
+	invoke         common.Invoker = common.Invoke{}  //nolint:unused
 )
 
 func init() {
@@ -171,10 +171,6 @@ func PercentWithContext(ctx context.Context, interval time.Duration, percpu bool
 	}
 
 	return calculateAllBusy(cpuTimes1, cpuTimes2)
-}
-
-func percentUsedFromLastCall(percpu bool) ([]float64, error) {
-	return percentUsedFromLastCallWithContext(context.Background(), percpu)
 }
 
 func percentUsedFromLastCallWithContext(ctx context.Context, percpu bool) ([]float64, error) {
