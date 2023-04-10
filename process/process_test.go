@@ -460,8 +460,8 @@ func Test_Process_CreateTime(t *testing.T) {
 		t.Errorf("process created time is wrong.")
 	}
 
-	gotElapsed := time.Since(time.Unix(int64(c/1000), 0))
-	maxElapsed := time.Duration(20 * time.Second)
+	gotElapsed := time.Since(time.Unix(c/1000, 0))
+	maxElapsed := 20 * time.Second
 
 	if gotElapsed >= maxElapsed {
 		t.Errorf("this process has not been running for %v", gotElapsed)
@@ -640,8 +640,8 @@ func Test_CPUTimes(t *testing.T) {
 	measuredElapsed := cpuTimes1.Total() - cpuTimes0.Total()
 	message := fmt.Sprintf("Measured %fs != spun time of %fs\ncpuTimes0=%v\ncpuTimes1=%v",
 		measuredElapsed, spinSeconds, cpuTimes0, cpuTimes1)
-	assert.True(t, measuredElapsed > float64(spinSeconds)/5, message)
-	assert.True(t, measuredElapsed < float64(spinSeconds)*5, message)
+	assert.True(t, measuredElapsed > spinSeconds/5, message)
+	assert.True(t, measuredElapsed < spinSeconds*5, message)
 }
 
 func Test_OpenFiles(t *testing.T) {
