@@ -23,8 +23,8 @@ func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {
 		Fstype:      getFsType(stat),
 		Total:       (stat.Blocks * bsize),
 		Free:        (stat.Bavail * bsize),
-		InodesTotal: (stat.Files)),
-		InodesFree:  (stat.Ffree)),
+		InodesTotal: stat.Files,
+		InodesFree:  stat.Ffree,
 	}
 
 	ret.Used = (stat.Blocks - stat.Bfree) * bsize
