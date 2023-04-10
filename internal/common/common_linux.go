@@ -25,7 +25,7 @@ func DoSysctrl(mib string) ([]string, error) {
 	}
 	v := strings.Replace(string(out), "{ ", "", 1)
 	v = strings.Replace(v, " }", "", 1)
-	values := strings.Fields(string(v))
+	values := strings.Fields(v)
 
 	return values, nil
 }

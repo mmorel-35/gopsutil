@@ -530,7 +530,8 @@ func LabelWithContext(ctx context.Context, name string) (string, error) {
 }
 
 func getFsType(stat unix.Statfs_t) string {
-	t := stat.Type
+        //nolint: unconvert
+	t := int64(stat.Type)
 	ret, ok := fsTypeMap[t]
 	if !ok {
 		return ""
