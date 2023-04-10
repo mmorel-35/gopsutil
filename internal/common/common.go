@@ -282,7 +282,6 @@ func IntContains(target []int, src int) bool {
 	return false
 }
 
-// get struct attributes.
 //nolint:unused // This method is used only for debugging platform dependent code.
 func attributes(m interface{}) map[string]reflect.Type {
 	typ := reflect.TypeOf(m)
