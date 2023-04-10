@@ -6,7 +6,7 @@ import (
 	"github.com/shirou/gopsutil/v3/internal/common"
 )
 
-var invoke common.Invoker = common.Invoke{}
+var invoke common.Invoker = common.Invoke{} //nolint:unused
 
 // Memory usage statistics. Total, Available and Used contain numbers of bytes
 // for human consumption.
