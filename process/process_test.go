@@ -22,7 +22,7 @@ import (
 	"github.com/shirou/gopsutil/v3/internal/common"
 )
 
-var mu sync.Mutex
+var mu sync.Mutex //nolint:unused
 
 func skipIfNotImplementedErr(t *testing.T, err error) {
 	if errors.Is(err, common.ErrNotImplementedError) {
