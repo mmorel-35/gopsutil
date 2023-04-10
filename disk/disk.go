@@ -7,7 +7,7 @@ import (
 	"github.com/shirou/gopsutil/v3/internal/common"
 )
 
-var invoke common.Invoker = common.Invoke{}  //nolint:unused
+var invoke common.Invoker = common.Invoke{} //nolint:unused
 
 type Warnings = common.Warnings
 
