@@ -16,7 +16,7 @@ func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {
 	if err != nil {
 		return nil, err
 	}
-	bsize := stat.Bsize
+	bsize := uint64(stat.Bsize)
 
 	ret := &UsageStat{
 		Path:        unescapeFstab(path),
