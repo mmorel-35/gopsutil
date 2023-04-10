@@ -28,7 +28,6 @@ linters:
     - goimports
     - gosec
     - gosimple
-    - govet
     - importas
     - ineffassign
     - megacheck
@@ -39,12 +38,13 @@ linters:
     - revive
     - typecheck
     - unparam
+    - unused
   disable:
     - deadcode
     - errcheck
+    - govet
     - staticcheck
     - structcheck
-    - unused
     - varcheck
 
 linters-settings:
