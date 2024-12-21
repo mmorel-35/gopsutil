@@ -62,4 +62,4 @@ linters-settings:
       - expected-actual
       - float-compare
       - require-error
-    enabel-all: true
+    enable-all: true
