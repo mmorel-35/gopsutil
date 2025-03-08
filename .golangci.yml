@@ -14,6 +14,7 @@ linters:
     - gomodguard
     - gosec
     - gosimple
+    - iface
     - importas
     - misspell
     - nakedret
@@ -46,6 +47,14 @@ linters-settings:
   gosec:
     excludes:
       - G115
+  iface:
+    enable:
+      - identical # Identifies interfaces in the same package that have identical method sets.
+      - unused # Identifies interfaces that are not used anywhere in the same package where the interface is defined.
+      - opaque # Identifies functions that return interfaces, but the actual returned value is always a single concrete implementation.
+    settings:
+      unused:
+        exclude: []
   perfsprint:
     # Optimizes even if it requires an int or uint type cast.
     int-conversion: true
