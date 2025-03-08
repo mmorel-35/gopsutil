@@ -25,6 +25,7 @@ linters:
     - thelper
     - typecheck
     - unparam
+    - usetesting
   disable:
     - errcheck
     - govet
@@ -119,3 +120,6 @@ linters-settings:
       # Check f.Helper() begins helper function.
       # Default: true
       begin: false
+  usetesting:
+      os-create-temp: false
+      os-mkdir-temp: false
