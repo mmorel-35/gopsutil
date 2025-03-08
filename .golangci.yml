@@ -5,6 +5,7 @@ linters:
   enable:
     - asciicheck
     - contextcheck
+    - decorder
     - durationcheck
     - errorlint
     - gci
