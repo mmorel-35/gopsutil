@@ -166,7 +166,7 @@ func TestProcessMemoryMaps(t *testing.T) {
 	t.Setenv("HOST_PROC", "testdata/linux")
 	pid := 1
 	p, err := NewProcess(int32(pid))
-	require.NoError(t, err)
+	require.Error(t, err)
 	maps, err := p.MemoryMaps(false)
 	require.NoError(t, err)
 

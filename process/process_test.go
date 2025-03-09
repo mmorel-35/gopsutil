@@ -255,7 +255,7 @@ func TestLong_Name_With_Spaces(t *testing.T) {
 	require.NoErrorf(t, err, "getting name error %v", err)
 	basename := filepath.Base(tmpfile.Name() + ".exe")
 	require.Equalf(t, basename, n, "%s != %s", basename, n)
-	cmd.Process.Kill()
+	require.NoError(t, cmd.Process.Kill())
 }
 
 // #nosec G204
@@ -290,7 +290,7 @@ func TestLong_Name(t *testing.T) {
 	require.NoErrorf(t, err, "getting name error %v", err)
 	basename := filepath.Base(tmpfile.Name() + ".exe")
 	require.Equalf(t, basename, n, "%s != %s", basename, n)
-	cmd.Process.Kill()
+	require.NoError(t, cmd.Process.Kill())
 }
 
 func TestName_Against_Python(t *testing.T) {
@@ -321,8 +321,8 @@ func TestName_Against_Python(t *testing.T) {
 	cmd := exec.Command(tmpfilepath)
 	outPipe, _ := cmd.StdoutPipe()
 	scanner := bufio.NewScanner(outPipe)
-	cmd.Start()
-	defer cmd.Process.Kill()
+	require.NoError(t, cmd.Start())
+	defer require.NoError(t, cmd.Process.Kill())
 	scanner.Scan()
 	pyName := scanner.Text() // first line printed by py3 script, its name
 	t.Logf("pyName %s", pyName)
@@ -573,7 +573,7 @@ func TestKill(t *testing.T) {
 	err = p.Kill()
 	common.SkipIfNotImplementedErr(t, err)
 	require.NoError(t, err)
-	cmd.Wait()
+	require.Error(t, cmd.Wait())
 }
 
 func TestIsRunning(t *testing.T) {
@@ -583,7 +583,7 @@ func TestIsRunning(t *testing.T) {
 	} else {
 		cmd = exec.Command("sleep", "1")
 	}
-	cmd.Start()
+	require.NoError(t, cmd.Start())
 	p, err := NewProcess(int32(cmd.Process.Pid))
 	common.SkipIfNotImplementedErr(t, err)
 	require.NoError(t, err)
@@ -591,7 +591,7 @@ func TestIsRunning(t *testing.T) {
 	common.SkipIfNotImplementedErr(t, err)
 	require.NoErrorf(t, err, "IsRunning error: %v", err)
 	require.Truef(t, running, "process should be found running")
-	cmd.Wait()
+	require.NoError(t, cmd.Wait())
 	running, err = p.IsRunning()
 	common.SkipIfNotImplementedErr(t, err)
 	require.NoErrorf(t, err, "IsRunning error: %v", err)
@@ -622,7 +622,7 @@ func TestEnviron(t *testing.T) {
 	cmd.Env = []string{"testkey=envvalue"}
 
 	require.NoError(t, cmd.Start())
-	defer cmd.Process.Kill()
+	defer require.NoError(t, cmd.Process.Kill())
 	time.Sleep(100 * time.Millisecond)
 	p, err := NewProcess(int32(cmd.Process.Pid))
 	common.SkipIfNotImplementedErr(t, err)
@@ -658,21 +658,24 @@ func TestCwd(t *testing.T) {
 func BenchmarkNewProcess(b *testing.B) {
 	checkPid := os.Getpid()
 	for i := 0; i < b.N; i++ {
-		NewProcess(int32(checkPid))
+		_, err := NewProcess(int32(checkPid))
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkProcessName(b *testing.B) {
 	p := testGetProcess()
 	for i := 0; i < b.N; i++ {
-		p.Name()
+		_, err := p.Name()
+		require.NoError(b, err)
 	}
 }
 
 func BenchmarkProcessPpid(b *testing.B) {
 	p := testGetProcess()
 	for i := 0; i < b.N; i++ {
-		p.Ppid()
+		_, err := p.Ppid()
+		require.NoError(b, err)
 	}
 }
 

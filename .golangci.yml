@@ -6,6 +6,7 @@ linters:
     - asciicheck
     - contextcheck
     - durationcheck
+    - errcheck
     - errorlint
     - gci
     - gocritic
@@ -28,7 +29,6 @@ linters:
     - unparam
     - usetesting
   disable:
-    - errcheck
     - govet
     - ineffassign
     - staticcheck
