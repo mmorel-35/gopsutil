@@ -92,7 +92,7 @@ func UptimeWithContext(ctx context.Context) (uint64, error) {
 }
 
 func UsersWithContext(ctx context.Context) ([]UserStat, error) {
-	return []UserStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func VirtualizationWithContext(ctx context.Context) (string, string, error) {

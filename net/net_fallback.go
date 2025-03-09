@@ -10,7 +10,7 @@ import (
 )
 
 func IOCountersWithContext(ctx context.Context, pernic bool) ([]IOCountersStat, error) {
-	return []IOCountersStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func IOCountersByFileWithContext(ctx context.Context, pernic bool, filename string) ([]IOCountersStat, error) {
@@ -35,7 +35,7 @@ func PidsWithContext(ctx context.Context) ([]int32, error) {
 }
 
 func ConnectionsWithContext(ctx context.Context, kind string) ([]ConnectionStat, error) {
-	return []ConnectionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func ConnectionsMaxWithContext(ctx context.Context, kind string, maxConn int) ([]ConnectionStat, error) {
@@ -67,5 +67,5 @@ func ConnectionsPidMaxWithoutUidsWithContext(ctx context.Context, kind string, p
 }
 
 func connectionsPidMaxWithoutUidsWithContext(_ context.Context, _ string, _ int32, _ int, _ bool) ([]ConnectionStat, error) {
-	return []ConnectionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }

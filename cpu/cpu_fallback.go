@@ -15,7 +15,7 @@ func Times(percpu bool) ([]TimesStat, error) {
 }
 
 func TimesWithContext(ctx context.Context, percpu bool) ([]TimesStat, error) {
-	return []TimesStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func Info() ([]InfoStat, error) {
@@ -23,7 +23,7 @@ func Info() ([]InfoStat, error) {
 }
 
 func InfoWithContext(ctx context.Context) ([]InfoStat, error) {
-	return []InfoStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func CountsWithContext(ctx context.Context, logical bool) (int, error) {

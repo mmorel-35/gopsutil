@@ -29,7 +29,7 @@ func GetDockerStatWithContext(ctx context.Context) ([]CgroupDockerStat, error) {
 		if errors.Is(err, exec.ErrNotFound) {
 			return nil, ErrDockerNotAvailable
 		}
-		return []CgroupDockerStat{}, err
+		return nil, err
 	}
 	lines := strings.Split(string(out), "\n")
 	ret := make([]CgroupDockerStat, 0, len(lines))
@@ -68,7 +68,7 @@ func GetDockerIDListWithContext(ctx context.Context) ([]string, error) {
 		if errors.Is(err, exec.ErrNotFound) {
 			return nil, ErrDockerNotAvailable
 		}
-		return []string{}, err
+		return nil, err
 	}
 	lines := strings.Split(string(out), "\n")
 	ret := make([]string, 0, len(lines))

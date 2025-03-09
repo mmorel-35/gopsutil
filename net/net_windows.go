@@ -287,7 +287,7 @@ func ConnectionsPidMaxWithoutUidsWithContext(ctx context.Context, kind string, p
 }
 
 func connectionsPidMaxWithoutUidsWithContext(_ context.Context, _ string, _ int32, _ int, _ bool) ([]ConnectionStat, error) {
-	return []ConnectionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func FilterCountersWithContext(ctx context.Context) ([]FilterStat, error) {

@@ -20,7 +20,7 @@ func TimesWithContext(ctx context.Context, percpu bool) ([]TimesStat, error) {
 		}
 		lines := strings.Split(string(per_out), "\n")
 		if len(lines) < 6 {
-			return []TimesStat{}, common.ErrNotImplementedError
+			return nil, common.ErrNotImplementedError
 		}
 
 		hp := strings.Fields(lines[5]) // headers
@@ -70,7 +70,7 @@ func TimesWithContext(ctx context.Context, percpu bool) ([]TimesStat, error) {
 		}
 		lines := strings.Split(string(out), "\n")
 		if len(lines) < 5 {
-			return []TimesStat{}, common.ErrNotImplementedError
+			return nil, common.ErrNotImplementedError
 		}
 
 		ct := &TimesStat{CPU: "cpu-total"}

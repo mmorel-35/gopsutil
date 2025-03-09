@@ -15,6 +15,7 @@ linters:
     - gosec
     - gosimple
     - importas
+    - makezero
     - misspell
     - nakedret
     - nolintlint
@@ -73,6 +74,12 @@ linters-settings:
           - "preserveScope"
       - name: empty-block
         disabled: true
+      - name: enforce-map-style
+        arguments:
+          - "make"
+      - name: enforce-slice-style
+        arguments:
+          - "make"
       - name: error-naming
       - name: error-return
       - name: error-strings

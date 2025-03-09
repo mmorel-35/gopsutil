@@ -21,7 +21,7 @@ func DoSysctrlWithContext(ctx context.Context, mib string) ([]string, error) {
 	cmd.Env = getSysctrlEnv(os.Environ())
 	out, err := cmd.Output()
 	if err != nil {
-		return []string{}, err
+		return nil, err
 	}
 	v := strings.Replace(string(out), "{ ", "", 1)
 	v = strings.Replace(string(v), " }", "", 1)

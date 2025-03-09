@@ -43,7 +43,7 @@ func Info() ([]InfoStat, error) {
 }
 
 func InfoWithContext(ctx context.Context) ([]InfoStat, error) {
-	return []InfoStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func CountsWithContext(ctx context.Context, logical bool) (int, error) {

@@ -397,7 +397,7 @@ func connectionsPidMaxWithoutUidsWithContext(ctx context.Context, kind string, p
 		inodes, err = getProcInodes(root, pid, maxConn)
 		if len(inodes) == 0 {
 			// no connection for the pid
-			return []ConnectionStat{}, nil
+			return make([]ConnectionStat, 0), nil
 		}
 	}
 	if err != nil {

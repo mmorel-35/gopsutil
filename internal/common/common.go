@@ -74,7 +74,7 @@ type FakeInvoke struct {
 // Command in FakeInvoke returns from expected file if exists.
 func (i FakeInvoke) Command(name string, arg ...string) ([]byte, error) {
 	if i.Error != nil {
-		return []byte{}, i.Error
+		return nil, i.Error
 	}
 
 	arch := runtime.GOOS
@@ -90,7 +90,7 @@ func (i FakeInvoke) Command(name string, arg ...string) ([]byte, error) {
 	if PathExists(fpath) {
 		return os.ReadFile(fpath)
 	}
-	return []byte{}, fmt.Errorf("could not find testdata: %s", fpath)
+	return nil, fmt.Errorf("could not find testdata: %s", fpath)
 }
 
 func (i FakeInvoke) CommandWithContext(ctx context.Context, name string, arg ...string) ([]byte, error) {
@@ -232,7 +232,7 @@ func ByteToString(orig []byte) string {
 func ReadInts(filename string) ([]int64, error) {
 	f, err := os.Open(filename)
 	if err != nil {
-		return []int64{}, err
+		return nil, err
 	}
 	defer f.Close()
 
@@ -243,12 +243,12 @@ func ReadInts(filename string) ([]int64, error) {
 	// The int files that this is concerned with should only be one liners.
 	line, err := r.ReadString('\n')
 	if err != nil {
-		return []int64{}, err
+		return nil, err
 	}
 
 	i, err := strconv.ParseInt(strings.Trim(line, "\n"), 10, 32)
 	if err != nil {
-		return []int64{}, err
+		return nil, err
 	}
 	ret = append(ret, i)
 

@@ -210,7 +210,7 @@ func (p *Process) ConnectionsMaxWithContext(ctx context.Context, maxConn int) ([
 }
 
 func ProcessesWithContext(ctx context.Context) ([]*Process, error) {
-	out := []*Process{}
+	out := make([]*Process, 0)
 
 	pids, err := PidsWithContext(ctx)
 	if err != nil {
@@ -252,7 +252,7 @@ func callPsWithContext(ctx context.Context, arg string, pid int32, threadOption 
 	}
 	out, err := invoke.CommandWithContext(ctx, "ps", cmd...)
 	if err != nil {
-		return [][]string{}, err
+		return nil, err
 	}
 	lines := strings.Split(string(out), "\n")
 

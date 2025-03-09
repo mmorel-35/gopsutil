@@ -22,11 +22,11 @@ func CallLsofWithContext(ctx context.Context, invoke Invoker, pid int32, args ..
 	out, err := invoke.CommandWithContext(ctx, "lsof", cmd...)
 	if err != nil {
 		if errors.Is(err, exec.ErrNotFound) {
-			return []string{}, err
+			return nil, err
 		}
 		// if no pid found, lsof returns code 1.
 		if err.Error() == "exit status 1" && len(out) == 0 {
-			return []string{}, nil
+			return nil, nil
 		}
 	}
 	lines := strings.Split(string(out), "\n")

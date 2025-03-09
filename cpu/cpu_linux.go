@@ -97,11 +97,11 @@ func Times(percpu bool) ([]TimesStat, error) {
 
 func TimesWithContext(ctx context.Context, percpu bool) ([]TimesStat, error) {
 	filename := common.HostProcWithContext(ctx, "stat")
-	lines := []string{}
+	lines := make([]string, 0)
 	if percpu {
 		statlines, err := common.ReadLines(filename)
 		if err != nil || len(statlines) < 2 {
-			return []TimesStat{}, nil
+			return make([]TimesStat, 0), nil
 		}
 		for _, line := range statlines[1:] {
 			if !strings.HasPrefix(line, "cpu") {

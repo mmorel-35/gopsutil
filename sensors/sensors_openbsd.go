@@ -10,5 +10,5 @@ import (
 )
 
 func TemperaturesWithContext(ctx context.Context) ([]TemperatureStat, error) {
-	return []TemperatureStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }

@@ -14,7 +14,7 @@ func IOCountersWithContext(ctx context.Context, names ...string) (map[string]IOC
 }
 
 func PartitionsWithContext(ctx context.Context, all bool) ([]PartitionStat, error) {
-	return []PartitionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {

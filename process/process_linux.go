@@ -621,7 +621,7 @@ func (p *Process) fillFromfdListWithContext(ctx context.Context) (string, []stri
 	statPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "fd")
 	d, err := os.Open(statPath)
 	if err != nil {
-		return statPath, []string{}, err
+		return statPath, nil, err
 	}
 	defer d.Close()
 	fnames, err := d.Readdirnames(-1)

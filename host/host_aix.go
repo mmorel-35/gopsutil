@@ -129,7 +129,7 @@ func UsersWithContext(ctx context.Context) ([]UserStat, error) {
 	}
 	lines := strings.Split(string(out), "\n")
 	if len(lines) < 3 {
-		return []UserStat{}, common.ErrNotImplementedError
+		return nil, common.ErrNotImplementedError
 	}
 
 	hf := strings.Fields(lines[1]) // headers

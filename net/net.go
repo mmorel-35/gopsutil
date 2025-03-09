@@ -122,7 +122,7 @@ type ConntrackStatList struct {
 
 func NewConntrackStatList() *ConntrackStatList {
 	return &ConntrackStatList{
-		items: []*ConntrackStat{},
+		items: make([]*ConntrackStat, 0),
 	}
 }
 

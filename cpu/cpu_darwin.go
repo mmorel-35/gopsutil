@@ -154,7 +154,7 @@ func perCPUTimes(machLib *common.Library) ([]TimesStat, error) {
 
 	defer vmDeallocate(machTaskSelf(), uintptr(unsafe.Pointer(cpuload)), uintptr(ncpu))
 
-	ret := []TimesStat{}
+	ret := make([]TimesStat, 0)
 	loads := unsafe.Slice(cpuload, ncpu)
 
 	for i := 0; i < int(ncpu); i++ {

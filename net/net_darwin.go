@@ -173,11 +173,6 @@ func PidsWithContext(ctx context.Context) ([]int32, error) {
 // lo0   16384 ::1/128     ::1                 869107     -  169411755   869107     -  169411755     -   -
 // lo0   16384 127           127.0.0.1         869107     -  169411755   869107     -  169411755     -   -
 func IOCountersWithContext(ctx context.Context, pernic bool) ([]IOCountersStat, error) {
-	var (
-		ret      []IOCountersStat
-		retIndex int
-	)
-
 	netstat, err := exec.LookPath("netstat")
 	if err != nil {
 		return nil, err
@@ -196,7 +191,8 @@ func IOCountersWithContext(ctx context.Context, pernic bool) ([]IOCountersStat, 
 
 	ifaceUsage := newMapInterfaceNameUsage(nsInterfaces)
 	notTruncated := ifaceUsage.notTruncated()
-	ret = make([]IOCountersStat, len(notTruncated))
+	var retIndex int
+	ret := make([]IOCountersStat, 0, len(notTruncated))
 
 	if !ifaceUsage.isTruncated() {
 		// no truncated interface name, return stats of all interface with <Link#...>

@@ -666,7 +666,7 @@ func (p *Process) PageFaultsWithContext(ctx context.Context) (*PageFaultsStat, e
 }
 
 func (p *Process) ChildrenWithContext(ctx context.Context) ([]*Process, error) {
-	out := []*Process{}
+	out := make([]*Process, 0)
 	snap, err := windows.CreateToolhelp32Snapshot(windows.TH32CS_SNAPPROCESS, uint32(0))
 	if err != nil {
 		return out, err
@@ -898,7 +898,7 @@ func getFromSnapProcess(pid int32) (int32, int32, string, error) { //nolint:unpa
 }
 
 func ProcessesWithContext(ctx context.Context) ([]*Process, error) {
-	out := []*Process{}
+	out := make([]*Process, 0)
 
 	pids, err := PidsWithContext(ctx)
 	if err != nil {

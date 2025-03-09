@@ -118,7 +118,7 @@ func InfoWithContext(ctx context.Context) ([]InfoStat, error) {
 			Cores:      int32(l.NumberOfLogicalProcessors),
 			PhysicalID: procID,
 			Mhz:        float64(l.MaxClockSpeed),
-			Flags:      []string{},
+			Flags:      make([]string, 0),
 		}
 		ret = append(ret, cpu)
 	}

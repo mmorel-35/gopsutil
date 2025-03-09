@@ -19,7 +19,7 @@ func ConnectionsWithContext(ctx context.Context, kind string) ([]ConnectionStat,
 }
 
 func ConnectionsMaxWithContext(ctx context.Context, kind string, maxConn int) ([]ConnectionStat, error) {
-	return []ConnectionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func ConnectionsPidWithContext(ctx context.Context, kind string, pid int32) ([]ConnectionStat, error) {
@@ -164,7 +164,7 @@ func parseNetAddr(line string) (laddr Addr, raddr Addr, err error) {
 }
 
 func ConnectionsPidMaxWithContext(ctx context.Context, kind string, pid int32, maxConn int) ([]ConnectionStat, error) {
-	return []ConnectionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
 
 func ConnectionsWithoutUidsWithContext(ctx context.Context, kind string) ([]ConnectionStat, error) {
@@ -184,5 +184,5 @@ func ConnectionsPidMaxWithoutUidsWithContext(ctx context.Context, kind string, p
 }
 
 func connectionsPidMaxWithoutUidsWithContext(ctx context.Context, kind string, pid int32, maxConn int) ([]ConnectionStat, error) {
-	return []ConnectionStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }

@@ -18,5 +18,5 @@ func VirtualizationWithContext(_ context.Context) (string, string, error) {
 }
 
 func TemperaturesWithContext(_ context.Context) ([]TemperatureStat, error) {
-	return []TemperatureStat{}, common.ErrNotImplementedError
+	return nil, common.ErrNotImplementedError
 }
