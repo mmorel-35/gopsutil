@@ -21,6 +21,7 @@ linters:
     - gomodguard
     - gosec
     - importas
+    - ineffassign
     - misspell
     - nakedret
     - nolintlint
@@ -34,7 +35,6 @@ linters:
   disable:
     - errcheck
     - govet
-    - ineffassign
     - staticcheck
     - unused
   settings:
