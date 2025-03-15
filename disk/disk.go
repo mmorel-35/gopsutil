@@ -15,14 +15,14 @@ type Warnings = common.Warnings
 type UsageStat struct {
 	Path              string  `json:"path"`
 	Fstype            string  `json:"fstype"`
+	UsedPercent       float64 `json:"usedPercent"`
+	InodesUsedPercent float64 `json:"inodesUsedPercent"`
 	Total             uint64  `json:"total"`
 	Free              uint64  `json:"free"`
 	Used              uint64  `json:"used"`
-	UsedPercent       float64 `json:"usedPercent"`
 	InodesTotal       uint64  `json:"inodesTotal"`
 	InodesUsed        uint64  `json:"inodesUsed"`
 	InodesFree        uint64  `json:"inodesFree"`
-	InodesUsedPercent float64 `json:"inodesUsedPercent"`
 }
 
 type PartitionStat struct {
@@ -33,6 +33,9 @@ type PartitionStat struct {
 }
 
 type IOCountersStat struct {
+	Name             string `json:"name"`
+	SerialNumber     string `json:"serialNumber"`
+	Label            string `json:"label"`
 	ReadCount        uint64 `json:"readCount"`
 	MergedReadCount  uint64 `json:"mergedReadCount"`
 	WriteCount       uint64 `json:"writeCount"`
@@ -44,9 +47,6 @@ type IOCountersStat struct {
 	IopsInProgress   uint64 `json:"iopsInProgress"`
 	IoTime           uint64 `json:"ioTime"`
 	WeightedIO       uint64 `json:"weightedIO"`
-	Name             string `json:"name"`
-	SerialNumber     string `json:"serialNumber"`
-	Label            string `json:"label"`
 }
 
 func (d UsageStat) String() string {

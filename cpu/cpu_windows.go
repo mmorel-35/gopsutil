@@ -18,14 +18,14 @@ import (
 var procGetNativeSystemInfo = common.Modkernel32.NewProc("GetNativeSystemInfo")
 
 type win32_Processor struct { //nolint:revive //FIXME
-	Family                    uint16
+	ProcessorID               *string
+	Stepping                  *string
 	Manufacturer              string
 	Name                      string
 	NumberOfLogicalProcessors uint32
 	NumberOfCores             uint32
-	ProcessorID               *string
-	Stepping                  *string
 	MaxClockSpeed             uint32
+	Family                    uint16
 }
 
 // SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION

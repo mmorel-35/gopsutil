@@ -26,11 +26,12 @@ func TestExVirtualMemory(t *testing.T) {
 }
 
 var virtualMemoryTests = []struct {
-	mockedRootFS string
 	stat         *VirtualMemoryStat
+	mockedRootFS string
 }{
 	{
-		"intelcorei5", &VirtualMemoryStat{
+		mockedRootFS: "intelcorei5",
+		stat: &VirtualMemoryStat{
 			Total:          16502300672,
 			Available:      11495358464,
 			Used:           3437277184,
@@ -71,7 +72,8 @@ var virtualMemoryTests = []struct {
 		},
 	},
 	{
-		"issue1002", &VirtualMemoryStat{
+		mockedRootFS: "issue1002",
+		stat: &VirtualMemoryStat{
 			Total:          260579328,
 			Available:      215199744,
 			Used:           34328576,
@@ -112,7 +114,8 @@ var virtualMemoryTests = []struct {
 		},
 	},
 	{
-		"anonhugepages", &VirtualMemoryStat{
+		mockedRootFS: "anonhugepages",
+		stat: &VirtualMemoryStat{
 			Total:         260799420 * 1024,
 			Available:     127880216 * 1024,
 			Free:          119443248 * 1024,

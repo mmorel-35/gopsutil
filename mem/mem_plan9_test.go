@@ -14,11 +14,12 @@ import (
 )
 
 var virtualMemoryTests = []struct {
-	mockedRootFS string
 	stat         *VirtualMemoryStat
+	mockedRootFS string
 }{
 	{
-		"swap", &VirtualMemoryStat{
+		mockedRootFS: "swap",
+		stat: &VirtualMemoryStat{
 			Total:       1071185920,
 			Available:   808370176,
 			Used:        11436032,
@@ -44,11 +45,12 @@ func TestVirtualMemoryPlan9(t *testing.T) {
 }
 
 var swapMemoryTests = []struct {
-	mockedRootFS string
 	swap         *SwapMemoryStat
+	mockedRootFS string
 }{
 	{
-		"swap", &SwapMemoryStat{
+		mockedRootFS: "swap",
+		swap: &SwapMemoryStat{
 			Total: 655360000,
 			Used:  0,
 			Free:  655360000,

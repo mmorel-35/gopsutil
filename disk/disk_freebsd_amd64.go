@@ -31,29 +31,29 @@ type (
 )
 
 type devstat struct {
-	Sequence0     uint32
-	Allocated     int32
-	Start_count   uint32
-	End_count     uint32
-	Busy_from     bintime
-	Dev_links     _Ctype_struct___0
-	Device_number uint32
-	Device_name   [16]int8
-	Unit_number   int32
+	ID            *byte
+	Duration      [4]bintime
 	Bytes         [4]uint64
 	Operations    [4]uint64
-	Duration      [4]bintime
-	Busy_time     bintime
-	Creation_time bintime
-	Block_size    uint32
-	Pad_cgo_0     [4]byte
 	Tag_types     [3]uint64
+	Creation_time bintime
+	Busy_from     bintime
+	Busy_time     bintime
+	Dev_links     _Ctype_struct___0
+	Device_number uint32
+	Start_count   uint32
+	Sequence1     uint32
+	Sequence0     uint32
+	End_count     uint32
+	Block_size    uint32
+	Allocated     int32
+	Unit_number   int32
 	Flags         uint32
 	Device_type   uint32
 	Priority      uint32
+	Device_name   [16]int8
 	Pad_cgo_1     [4]byte
-	ID            *byte
-	Sequence1     uint32
+	Pad_cgo_0     [4]byte
 	Pad_cgo_2     [4]byte
 }
 

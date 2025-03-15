@@ -70,9 +70,9 @@ func CallSyscall(mib []int32) ([]byte, uint64, error) {
 
 // Library represents a dynamic library loaded by purego.
 type Library struct {
-	addr  uintptr
-	path  string
 	close func()
+	path  string
+	addr  uintptr
 }
 
 // library paths
@@ -281,9 +281,9 @@ const (
 
 // SMC represents a SMC instance.
 type SMC struct {
+	callStruct IOConnectCallStructMethodFunc
 	lib        *Library
 	conn       uint32
-	callStruct IOConnectCallStructMethodFunc
 }
 
 const ioServiceSMC = "AppleSMC"

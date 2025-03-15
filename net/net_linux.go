@@ -286,9 +286,9 @@ var tcpStatuses = map[string]string{
 }
 
 type netConnectionKindType struct {
+	filename string
 	family   uint32
 	sockType uint32
-	filename string
 }
 
 var kindTCP4 = netConnectionKindType{
@@ -340,15 +340,15 @@ type inodeMap struct {
 }
 
 type connTmp struct {
+	status   string
+	path     string
+	laddr    Addr
+	raddr    Addr
 	fd       uint32
 	family   uint32
 	sockType uint32
-	laddr    Addr
-	raddr    Addr
-	status   string
 	pid      int32
 	boundPid int32
-	path     string
 }
 
 func ConnectionsWithContext(ctx context.Context, kind string) ([]ConnectionStat, error) {
@@ -543,8 +543,8 @@ func PidsWithContext(ctx context.Context) ([]int32, error) {
 // FIXME: Import process occures import cycle.
 // see remarks on pids()
 type process struct {
-	Pid  int32 `json:"pid"`
 	uids []int32
+	Pid  int32 `json:"pid"`
 }
 
 // Uids returns user ids of the process as a slice of the int

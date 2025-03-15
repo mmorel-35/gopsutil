@@ -32,20 +32,20 @@ type Addr struct {
 }
 
 type ConnectionStat struct {
+	Status string  `json:"status"`
+	Laddr  Addr    `json:"localaddr"`
+	Raddr  Addr    `json:"remoteaddr"`
+	Uids   []int32 `json:"uids"`
 	Fd     uint32  `json:"fd"`
 	Family uint32  `json:"family"`
 	Type   uint32  `json:"type"`
-	Laddr  Addr    `json:"localaddr"`
-	Raddr  Addr    `json:"remoteaddr"`
-	Status string  `json:"status"`
-	Uids   []int32 `json:"uids"`
 	Pid    int32   `json:"pid"`
 }
 
 // System wide stats about different network protocols
 type ProtoCountersStat struct {
-	Protocol string           `json:"protocol"`
 	Stats    map[string]int64 `json:"stats"`
+	Protocol string           `json:"protocol"`
 }
 
 // NetInterfaceAddr is designed for represent interface addresses
@@ -57,12 +57,12 @@ type InterfaceAddr struct {
 type InterfaceAddrList []InterfaceAddr
 
 type InterfaceStat struct {
-	Index        int               `json:"index"`
-	MTU          int               `json:"mtu"`          // maximum transmission unit
 	Name         string            `json:"name"`         // e.g., "en0", "lo0", "eth0.100"
 	HardwareAddr string            `json:"hardwareAddr"` // IEEE MAC-48, EUI-48 and EUI-64 form
-	Flags        []string          `json:"flags"`        // e.g., FlagUp, FlagLoopback, FlagMulticast
 	Addrs        InterfaceAddrList `json:"addrs"`
+	Flags        []string          `json:"flags"` // e.g., FlagUp, FlagLoopback, FlagMulticast
+	Index        int               `json:"index"`
+	MTU          int               `json:"mtu"` // maximum transmission unit
 }
 
 // InterfaceStatList is a list of InterfaceStat

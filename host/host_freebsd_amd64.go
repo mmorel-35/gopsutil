@@ -28,11 +28,11 @@ type Utmp struct {
 }
 
 type Utmpx struct {
-	Type uint8
 	Tv   uint64
-	Id   [8]int8
 	Pid  uint32
+	Host [128]int8
 	User [32]int8
 	Line [16]int8
-	Host [128]int8
+	Id   [8]int8
+	Type uint8
 }

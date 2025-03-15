@@ -57,17 +57,17 @@ func VirtualMemoryWithContext(_ context.Context) (*VirtualMemoryStat, error) {
 }
 
 type performanceInformation struct {
-	cb                uint32
-	commitTotal       uint64
+	systemCache       uint64
+	pageSize          uint64
 	commitLimit       uint64
 	commitPeak        uint64
 	physicalTotal     uint64
 	physicalAvailable uint64
-	systemCache       uint64
-	kernelTotal       uint64
 	kernelPaged       uint64
+	kernelTotal       uint64
+	commitTotal       uint64
 	kernelNonpaged    uint64
-	pageSize          uint64
+	cb                uint32
 	handleCount       uint32
 	processCount      uint32
 	threadCount       uint32

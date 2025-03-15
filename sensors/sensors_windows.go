@@ -13,10 +13,10 @@ import (
 )
 
 type msAcpi_ThermalZoneTemperature struct { //nolint:revive //FIXME
-	Active             bool
+	InstanceName       string
 	CriticalTripPoint  uint32
 	CurrentTemperature uint32
-	InstanceName       string
+	Active             bool
 }
 
 func TemperaturesWithContext(ctx context.Context) ([]TemperatureStat, error) {

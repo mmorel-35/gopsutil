@@ -33,25 +33,25 @@ type TimesStat struct {
 }
 
 type InfoStat struct {
-	CPU        int32    `json:"cpu"`
+	PhysicalID string   `json:"physicalId"`
 	VendorID   string   `json:"vendorId"`
 	Family     string   `json:"family"`
 	Model      string   `json:"model"`
-	Stepping   int32    `json:"stepping"`
-	PhysicalID string   `json:"physicalId"`
 	CoreID     string   `json:"coreId"`
-	Cores      int32    `json:"cores"`
 	ModelName  string   `json:"modelName"`
-	Mhz        float64  `json:"mhz"`
-	CacheSize  int32    `json:"cacheSize"`
-	Flags      []string `json:"flags"`
 	Microcode  string   `json:"microcode"`
+	Flags      []string `json:"flags"`
+	Mhz        float64  `json:"mhz"`
+	Stepping   int32    `json:"stepping"`
+	Cores      int32    `json:"cores"`
+	CacheSize  int32    `json:"cacheSize"`
+	CPU        int32    `json:"cpu"`
 }
 
 type lastPercent struct {
-	sync.Mutex
 	lastCPUTimes    []TimesStat
 	lastPerCPUTimes []TimesStat
+	sync.Mutex
 }
 
 var (

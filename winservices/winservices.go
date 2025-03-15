@@ -15,18 +15,18 @@ import (
 
 // Service represent a windows service.
 type Service struct {
+	srv    *mgr.Service
 	Name   string
 	Config mgr.Config
 	Status ServiceStatus
-	srv    *mgr.Service
 }
 
 // ServiceStatus combines State and Accepted commands to fully describe running service.
 type ServiceStatus struct {
-	State         svc.State
-	Accepts       svc.Accepted
 	Pid           uint32
 	Win32ExitCode uint32
+	State         svc.State
+	Accepts       svc.Accepted
 }
 
 // NewService create and return a windows Service

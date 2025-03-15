@@ -37,9 +37,9 @@ const (
 )
 
 type netConnectionKindType struct {
+	filename string
 	family   uint32
 	sockType uint32
-	filename string
 }
 
 var kindTCP4 = netConnectionKindType{

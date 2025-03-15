@@ -20,9 +20,6 @@ var invoke common.Invoker = common.Invoke{}
 // This is not in the psutil but it useful.
 type InfoStat struct {
 	Hostname             string `json:"hostname"`
-	Uptime               uint64 `json:"uptime"`
-	BootTime             uint64 `json:"bootTime"`
-	Procs                uint64 `json:"procs"`           // number of processes
 	OS                   string `json:"os"`              // ex: freebsd, linux
 	Platform             string `json:"platform"`        // ex: ubuntu, linuxmint
 	PlatformFamily       string `json:"platformFamily"`  // ex: debian, rhel
@@ -32,6 +29,9 @@ type InfoStat struct {
 	VirtualizationSystem string `json:"virtualizationSystem"`
 	VirtualizationRole   string `json:"virtualizationRole"` // guest or host
 	HostID               string `json:"hostId"`             // ex: uuid
+	Uptime               uint64 `json:"uptime"`
+	BootTime             uint64 `json:"bootTime"`
+	Procs                uint64 `json:"procs"` // number of processes
 }
 
 type UserStat struct {

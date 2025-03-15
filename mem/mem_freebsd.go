@@ -93,8 +93,8 @@ const (
 
 // Types from vm/vm_param.h
 type xswdev struct {
-	Version uint32 // Version is the version
 	Dev     uint64 // Dev is the device identifier
+	Version uint32 // Version is the version
 	Flags   int32  // Flags is the swap flags applied to the device
 	NBlks   int32  // NBlks is the total number of blocks
 	Used    int32  // Used is the number of blocks used
