@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"runtime"
+	"slices"
 	"strconv"
 	"strings"
 	"sync"
@@ -370,7 +371,7 @@ func TestCpuPercentLoop(t *testing.T) {
 	p := testGetProcess()
 	numcpu := runtime.NumCPU()
 
-	for i := 0; i < 2; i++ {
+	for range 2 {
 		duration := time.Duration(100) * time.Microsecond
 		percent, err := p.Percent(duration)
 		skipIfNotImplementedErr(t, err)
@@ -639,11 +640,8 @@ func TestEnviron(t *testing.T) {
 	skipIfNotImplementedErr(t, err)
 	require.NoErrorf(t, err, "getting environ error %v", err)
 	var envvarFound bool
-	for _, envvar := range envs {
-		if envvar == "testkey=envvalue" {
-			envvarFound = true
-			break
-		}
+	if slices.Contains(envs, "testkey=envvalue") {
+		envvarFound = true
 	}
 	assert.Truef(t, envvarFound, "environment variable not found")
 }

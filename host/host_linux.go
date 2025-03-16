@@ -96,7 +96,7 @@ func UsersWithContext(ctx context.Context) ([]UserStat, error) {
 
 	ret := make([]UserStat, 0, count)
 
-	for i := 0; i < count; i++ {
+	for i := range count {
 		b := buf[i*sizeOfUtmp : (i+1)*sizeOfUtmp]
 
 		var u utmp

@@ -73,3 +73,15 @@ jobs:
         with:
           args: --verbose
           version: latest
+      - name: Run modernize
+        run: go run golang.org/x/tools/gopls/internal/analysis/modernize/cmd/modernize@latest -fix ./...
+
+      - uses: peter-evans/create-pull-request@v7
+        if: failure()
+        with:
+          add-paths: '**/*.go'
+          commit-message: 'Apply modernize suggestions for ${{ matrix.GOOS }} ${{ matrix.GOARCH }}'
+          title: 'Apply modernize suggestions'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: modernize/${{ matrix.GOOS }}/${{ matrix.GOARCH }}/${{ github.ref }}
+          base: ${{ github.ref }}

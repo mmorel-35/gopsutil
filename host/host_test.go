@@ -119,7 +119,7 @@ func TestVirtualization(t *testing.T) {
 	wg := sync.WaitGroup{}
 	testCount := 10
 	wg.Add(testCount)
-	for i := 0; i < testCount; i++ {
+	for i := range testCount {
 		go func(j int) {
 			system, role, err := Virtualization()
 			wg.Done()

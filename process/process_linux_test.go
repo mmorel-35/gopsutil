@@ -18,7 +18,7 @@ import (
 func TestSplitProcStat(t *testing.T) {
 	expectedFieldsNum := 53
 	statLineContent := make([]string, expectedFieldsNum-1)
-	for i := 0; i < expectedFieldsNum-1; i++ {
+	for i := range expectedFieldsNum - 1 {
 		statLineContent[i] = strconv.Itoa(i + 1)
 	}
 
