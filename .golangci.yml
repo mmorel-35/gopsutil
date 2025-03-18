@@ -83,6 +83,7 @@ linters-settings:
       - name: indent-error-flow
         arguments:
           - "preserveScope"
+      - name: optimize-operands-order
       - name: range
       - name: receiver-naming
       - name: redefines-builtin-id
