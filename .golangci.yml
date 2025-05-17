@@ -50,7 +50,11 @@ linters:
                 - os
     gosec:
       excludes:
-        - G115
+        - G103 # Audit the use of unsafe block
+        - G104 # Audit errors not checked
+        - G115 # Potential integer overflow when converting between integer types
+        - G204 # Audit use of command execution
+        - G304 # File path provided as taint input
     govet:
       disable:
         - copylocks
@@ -122,19 +126,18 @@ linters:
         - -SA4008 # The variable in the loop condition never changes, are you incrementing the wrong variable?
         - -SA5003 # Defers in infinite loops will never execute
         - -SA9003 # Empty body in an if or else branch
+        - -ST1000 # Incorrect or missing package comment
         - -ST1003 # Poorly chosen identifier
+        - -ST1020 # The documentation of an exported function should start with the function’s name
+        - -ST1021 # The documentation of an exported type should start with type’s name
+        - -ST1022 # The documentation of an exported variable or constant should start with variable’s name
     testifylint:
       enable-all: true
     usetesting:
       os-create-temp: false
       os-mkdir-temp: false
   exclusions:
-    generated: lax
-    presets:
-      - comments
-      - common-false-positives
-      - legacy
-      - std-error-handling
+    generated: strict
     warn-unused: true
 output:
   show-stats: false
