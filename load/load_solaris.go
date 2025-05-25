@@ -39,9 +39,9 @@ func AvgWithContext(ctx context.Context) (*AvgStat, error) {
 		default:
 			continue
 		}
-		v, err := strconv.ParseInt(flds[1], 10, 64)
-		if err != nil {
-			return nil, err
+		v, perr := strconv.ParseInt(flds[1], 10, 64)
+		if perr != nil {
+			return nil, perr
 		}
 		*tgt = float64(v) / (1 << 8)
 	}

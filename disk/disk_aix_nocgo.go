@@ -121,10 +121,10 @@ func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {
 			case `Path`:
 				ret.Path = fs[i]
 			case `512-blocks`:
-				total, err := strconv.ParseUint(fs[i], 10, 64)
+				total, perr := strconv.ParseUint(fs[i], 10, 64)
 				ret.Total = total * blocksize
-				if err != nil {
-					return nil, err
+				if perr != nil {
+					return nil, perr
 				}
 			case `Used`:
 				ret.Used, err = strconv.ParseUint(fs[i], 10, 64)
@@ -137,9 +137,9 @@ func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {
 					return nil, err
 				}
 			case `%Used`:
-				val, err := strconv.ParseInt(strings.ReplaceAll(fs[i], "%", ""), 10, 32)
-				if err != nil {
-					return nil, err
+				val, perr := strconv.ParseInt(strings.ReplaceAll(fs[i], "%", ""), 10, 32)
+				if perr != nil {
+					return nil, perr
 				}
 				ret.UsedPercent = float64(val) / float64(100)
 			case `Ifree`:

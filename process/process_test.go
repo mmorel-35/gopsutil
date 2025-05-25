@@ -233,7 +233,7 @@ func TestLong_Name_With_Spaces(t *testing.T) {
 	require.NoErrorf(t, err, "unable to create temp file %v", err)
 
 	tmpfilecontent := []byte("package main\nimport(\n\"time\"\n)\nfunc main(){\nfor range time.Tick(time.Second) {}\n}")
-	if _, err := tmpfile.Write(tmpfilecontent); err != nil {
+	if _, err = tmpfile.Write(tmpfilecontent); err != nil {
 		tmpfile.Close()
 		t.Fatalf("unable to write temp file %v", err)
 	}
@@ -268,7 +268,7 @@ func TestLong_Name(t *testing.T) {
 	require.NoErrorf(t, err, "unable to create temp file %v", err)
 
 	tmpfilecontent := []byte("package main\nimport(\n\"time\"\n)\nfunc main(){\nfor range time.Tick(time.Second) {}\n}")
-	if _, err := tmpfile.Write(tmpfilecontent); err != nil {
+	if _, err = tmpfile.Write(tmpfilecontent); err != nil {
 		tmpfile.Close()
 		t.Fatalf("unable to write temp file %v", err)
 	}
@@ -301,7 +301,8 @@ func TestName_Against_Python(t *testing.T) {
 	if err != nil {
 		t.Skipf("python3 not found: %s", err)
 	}
-	if out, err := exec.Command(py3Path, "-c", "import psutil").CombinedOutput(); err != nil {
+	out, err := exec.Command(py3Path, "-c", "import psutil").CombinedOutput()
+	if err != nil {
 		t.Skipf("psutil not found for %s: %s", py3Path, out)
 	}
 
@@ -312,7 +313,7 @@ func TestName_Against_Python(t *testing.T) {
 	tmpfile, err := os.Create(tmpfilepath)
 	require.NoErrorf(t, err, "unable to create temp file %v", err)
 	tmpfilecontent := []byte("#!" + py3Path + "\nimport psutil, time\nprint(psutil.Process().name(), flush=True)\nwhile True:\n\ttime.sleep(1)")
-	if _, err := tmpfile.Write(tmpfilecontent); err != nil {
+	if _, err = tmpfile.Write(tmpfilecontent); err != nil {
 		tmpfile.Close()
 		t.Fatalf("unable to write temp file %v", err)
 	}
@@ -418,16 +419,16 @@ func TestConnections(t *testing.T) {
 
 	serverEstablished := make(chan struct{})
 	go func() { // TCP listening goroutine
-		conn, err := l.Accept()
-		if err != nil {
-			panic(err)
+		conn, cerr := l.Accept()
+		if cerr != nil {
+			panic(cerr)
 		}
 		defer conn.Close()
 
 		serverEstablished <- struct{}{}
-		_, err = io.ReadAll(conn)
-		if err != nil {
-			panic(err)
+		_, rerr := io.ReadAll(conn)
+		if rerr != nil {
+			panic(rerr)
 		}
 	}()
 
@@ -608,7 +609,7 @@ func TestEnviron(t *testing.T) {
 	require.NoErrorf(t, err, "unable to create temp file %v", err)
 
 	tmpfilecontent := []byte("package main\nimport(\n\"time\"\n)\nfunc main(){\nfor range time.Tick(time.Second) {}\n}")
-	if _, err := tmpfile.Write(tmpfilecontent); err != nil {
+	if _, err = tmpfile.Write(tmpfilecontent); err != nil {
 		tmpfile.Close()
 		t.Fatalf("unable to write temp file %v", err)
 	}

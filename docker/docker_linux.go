@@ -115,14 +115,14 @@ func CgroupCPUWithContext(ctx context.Context, containerID string, base string) 
 	for _, line := range lines {
 		fields := strings.Split(line, " ")
 		if fields[0] == "user" {
-			user, err := strconv.ParseFloat(fields[1], 64)
-			if err == nil {
+			user, perr := strconv.ParseFloat(fields[1], 64)
+			if perr == nil {
 				ret.User = user / cpu.ClocksPerSec
 			}
 		}
 		if fields[0] == "system" {
-			system, err := strconv.ParseFloat(fields[1], 64)
-			if err == nil {
+			system, perr := strconv.ParseFloat(fields[1], 64)
+			if perr == nil {
 				ret.System = system / cpu.ClocksPerSec
 			}
 		}
@@ -184,8 +184,8 @@ func CgroupMemWithContext(ctx context.Context, containerID string, base string) 
 	ret := &CgroupMemStat{ContainerID: containerID}
 	for _, line := range lines {
 		fields := strings.Split(line, " ")
-		v, err := strconv.ParseUint(fields[1], 10, 64)
-		if err != nil {
+		v, perr := strconv.ParseUint(fields[1], 10, 64)
+		if perr != nil {
 			continue
 		}
 		switch fields[0] {

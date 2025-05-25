@@ -153,9 +153,9 @@ func IOCountersWithContext(_ context.Context, pernic bool) ([]IOCountersStat, er
 			}
 
 			row := mibIfRow2{InterfaceIndex: uint32(ifi.Index)}
-			ret, _, err := procGetIfEntry2.Call(uintptr(unsafe.Pointer(&row)))
+			ret, _, cerr := procGetIfEntry2.Call(uintptr(unsafe.Pointer(&row)))
 			if ret != 0 {
-				return nil, os.NewSyscallError("GetIfEntry2", err)
+				return nil, os.NewSyscallError("GetIfEntry2", cerr)
 			}
 			c.BytesSent = uint64(row.OutOctets)
 			c.BytesRecv = uint64(row.InOctets)

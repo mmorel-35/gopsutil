@@ -83,9 +83,9 @@ func BootTimeWithContext(ctx context.Context, enableCache bool) (uint64, error) 
 	}
 
 	if useStatFile {
-		t, err := readBootTimeStat(ctx)
-		if err != nil {
-			return 0, err
+		t, rerr := readBootTimeStat(ctx)
+		if rerr != nil {
+			return 0, rerr
 		}
 		if enableCache {
 			atomic.StoreUint64(&cachedBootTime, t)
@@ -121,9 +121,9 @@ func BootTimeWithContext(ctx context.Context, enableCache bool) (uint64, error) 
 func handleBootTimeFileReadErr(err error) (uint64, error) {
 	if os.IsPermission(err) {
 		var info syscall.Sysinfo_t
-		err := syscall.Sysinfo(&info)
-		if err != nil {
-			return 0, err
+		serr := syscall.Sysinfo(&info)
+		if serr != nil {
+			return 0, serr
 		}
 
 		currentTime := time.Now().UnixNano() / int64(time.Second)

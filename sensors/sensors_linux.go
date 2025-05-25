@@ -36,20 +36,20 @@ func TemperaturesWithContext(ctx context.Context) ([]TemperatureStat, error) {
 
 		for _, file := range files {
 			// Get the name of the temperature you are reading
-			name, err := os.ReadFile(filepath.Join(file, "type"))
-			if err != nil {
-				warns.Add(err)
+			name, rerr := os.ReadFile(filepath.Join(file, "type"))
+			if rerr != nil {
+				warns.Add(rerr)
 				continue
 			}
 			// Get the temperature reading
-			current, err := os.ReadFile(filepath.Join(file, "temp"))
-			if err != nil {
-				warns.Add(err)
+			current, rerr := os.ReadFile(filepath.Join(file, "temp"))
+			if rerr != nil {
+				warns.Add(rerr)
 				continue
 			}
-			temperature, err := strconv.ParseInt(strings.TrimSpace(string(current)), 10, 64)
-			if err != nil {
-				warns.Add(err)
+			temperature, perr := strconv.ParseInt(strings.TrimSpace(string(current)), 10, 64)
+			if perr != nil {
+				warns.Add(perr)
 				continue
 			}
 
@@ -156,7 +156,7 @@ func optionalValueReadFromFile(filename string) float64 {
 	var value float64
 
 	// Check if file exists
-	if _, err := os.Stat(filename); os.IsNotExist(err) {
+	if _, err = os.Stat(filename); os.IsNotExist(err) {
 		return 0
 	}
 

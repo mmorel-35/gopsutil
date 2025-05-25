@@ -25,8 +25,8 @@ func HostIDWithContext(ctx context.Context) (string, error) {
 
 	if platform == "SmartOS" {
 		// If everything works, use the current zone ID as the HostID if present.
-		out, err := invoke.CommandWithContext(ctx, "zonename")
-		if err == nil {
+		out, cerr := invoke.CommandWithContext(ctx, "zonename")
+		if cerr == nil {
 			sc := bufio.NewScanner(bytes.NewReader(out))
 			for sc.Scan() {
 				line := sc.Text()
@@ -35,8 +35,8 @@ func HostIDWithContext(ctx context.Context) (string, error) {
 				if line != "global" {
 					return strings.TrimSpace(line), nil
 				}
-				hostname, err := os.Hostname()
-				if err == nil {
+				hostname, herr := os.Hostname()
+				if herr == nil {
 					return hostname, nil
 				}
 			}
