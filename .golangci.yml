@@ -95,6 +95,7 @@ linters:
         - name: exported
           disabled: true
         - name: errorf
+        - name: if-return
         - name: increment-decrement
         - name: indent-error-flow
           arguments:
