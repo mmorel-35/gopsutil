@@ -1126,7 +1126,6 @@ func getProcessEnvironmentVariables(ctx context.Context, pid int32) ([]string, e
 		envVars = append(envVars, convertUTF16ToString(entry))
 		select {
 		case <-ctx.Done():
-			break
 		default:
 			continue
 		}
