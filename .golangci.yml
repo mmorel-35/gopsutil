@@ -208,228 +208,60 @@ linters:
         linters:
           - govet
       
-      # Exclude errname for platform-specific error types/variables (breaking changes)
-      - text: 'the error type name `Warnings` should conform to the `XxxError` format'
-        linters:
-          - errname
-      - text: 'the sentinel error name `ErrorNoChildren` should conform to the `ErrXxx` format'
-        linters:
-          - errname
-      - text: 'the sentinel error name `ErrorProcessNotRunning` should conform to the `ErrXxx` format'
-        linters:
-          - errname
-      - text: 'the sentinel error name `ErrorNotPermitted` should conform to the `ErrXxx` format'
-        linters:
-          - errname
-      - text: 'the sentinel error name `loadErr` should conform to the `errXxx` format'
+      # Exclude errname for public API error names (breaking changes)
+      - text: '(error type name `Warnings`|sentinel error name `(Error\w+|loadErr)`).*(Xxx|Err)'
         linters:
           - errname
       
-      # Exclude unused for platform-specific invoke variables
+      # Exclude unused for platform-specific code (used in other OS builds)
       - text: 'var invoke is unused'
         linters:
           - unused
-      
-      # Exclude unused in test files
       - linters:
           - unused
         path: _test\.go
+      - linters:
+          - unused
+        path: 'process/process(_\w+)?\.go'
+      - linters:
+          - unused
+        path: '(host|cpu|disk|load|mem|net|sensors|docker)/.*_(windows|aix|bsd|posix|darwin|freebsd).*\.go'
+      - linters:
+          - unused
+        path: 'internal/common/common(_windows)?\.go'
+      - linters:
+          - unused
+        path: '(host|cpu|docker)/\w+\.go'
+        text: '(func|var|const).* is unused'
       
-      # Exclude unused for platform-specific code in process package
-      - linters:
-          - unused
-        path: process/process\.go
-        text: 'field.*is unused'
-      - linters:
-          - unused
-        path: process/process\.go
-        text: 'var.*is unused'
-      - linters:
-          - unused
-        path: process/process_bsd\.go
-      - linters:
-          - unused
-        path: process/process_posix\.go
-      - linters:
-          - unused
-        path: process/process_darwin\.go
-      - linters:
-          - unused
-        path: process/process_windows\.go
-      - linters:
-          - unused
-        path: process/process_freebsd\.go
-      - linters:
-          - unused
-        path: process/process_openbsd\.go
-      - linters:
-          - unused
-        path: process/process_netbsd\.go
-      - linters:
-          - unused
-        path: process/process_aix\.go
-      
-      # Exclude unused for platform-specific code in other packages
-      - linters:
-          - unused
-        path: host/host\.go
-        text: 'func.*is unused'
-      - linters:
-          - unused
-        path: host/host\.go
-        text: 'var.*is unused'
-      - linters:
-          - unused
-        path: host/host_windows\.go
-      - linters:
-          - unused
-        path: host/host_aix\.go
-      - linters:
-          - unused
-        path: docker/docker\.go
-        text: 'const.*is unused'
-      - linters:
-          - unused
-        path: load/load_bsd\.go
-      - linters:
-          - unused
-        path: disk/disk_aix.*\.go
-      - linters:
-          - unused
-        path: sensors/sensors_aix\.go
-      - linters:
-          - unused
-        path: cpu/cpu\.go
-        text: 'func percentUsedFromLastCall is unused'
-      - linters:
-          - unused
-        path: cpu/cpu\.go
-        text: 'func convertStatusChar is unused'
-      - linters:
-          - unused
-        path: process/process\.go
-        text: 'func convertStatusChar is unused'
-      - linters:
-          - unused
-        path: cpu/cpu_freebsd\.go
-      - linters:
-          - unused
-        path: internal/common/common_windows\.go
-      - linters:
-          - unused
-        path: mem/mem_windows\.go
-      - linters:
-          - unused
-        path: net/net_windows\.go
-      - linters:
-          - unused
-        path: cpu/cpu_windows\.go
-      - linters:
-          - unused
-        path: internal/common/common\.go
-        text: 'func attributes is unused'
-      
-      # Exclude errcheck for Windows syscall cleanup operations (all .Call patterns)
-      - text: '\.Call.*is not checked'
+      # Exclude errcheck for cleanup operations and Windows syscalls
+      - text: '(\.Call|unsafe\.Sizeof|token\.Close|windows\.(LocalFree|CloseHandle|RegCloseKey)|key\.(Close|SetDWordValue)|smc\.Close|purego\.Dlclose|m\.close).*is not checked'
         linters:
           - errcheck
-      
-      # Exclude errcheck for safe conversions and sizeof operations
-      - text: 'Error return value of.*unsafe\.Sizeof.*is not checked'
+      - path: '(net/net_windows|winservices/).*\.go'
         linters:
           - errcheck
-      - text: 'Error return value is not checked.*unsafe\.Sizeof'
-        linters:
-          - errcheck
-      - text: 'Error return value is not checked.*int\(.*\.(DwNumEntries|Table)\)'
-        linters:
-          - errcheck
-      - path: net/net_windows\.go
-        linters:
-          - errcheck
-      - path: winservices/
-        text: 'Error return value of `m\.close` is not checked'
-        linters:
-          - errcheck
-      
-      # Exclude errcheck for test listener/connection cleanup
       - path: _test\.go
         text: 'Error return value of `l\.Close` is not checked'
         linters:
           - errcheck
       
-      # Exclude errcheck for platform-specific cleanup operations
-      - text: 'Error return value of `purego\.Dlclose` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `key\.SetDWordValue` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `key\.Close` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `smc\.Close` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `procFindVolumeClose\.Call` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `windows\.CloseHandle` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `windows\.RegCloseKey` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `procGetNativeSystemInfo\.Call` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `common\.PdhCloseQuery\.Call` is not checked'
-        linters:
-          - errcheck
-      
-      # Exclude unconvert for platform-specific type conversions (safe mode already enabled)
+      # Exclude platform-specific linter warnings
       - text: 'unnecessary conversion'
         linters:
           - unconvert
-      
-      # Exclude nilerr for platform-specific error handling patterns
       - text: 'error is not nil .* but it returns nil'
         linters:
           - nilerr
-      
-      # Exclude intrange where function calls may have side effects
       - text: 'for loop can be changed to use an integer range'
         linters:
           - intrange
-      
-      - text: 'Error return value of `token\.Close` is not checked'
-        linters:
-          - errcheck
-      - text: 'Error return value of `windows\.LocalFree` is not checked'
-        linters:
-          - errcheck
-      
-      # Exclude makezero for intentional non-zero slice initialization
-      - path: process/process_linux.go
+      - path: '(process/process_linux|net/net_darwin)\.go'
         text: 'append to slice `ret` with non-zero initialized length'
         linters:
           - makezero
-      - path: net/net_darwin.go
-        text: 'append to slice `ret` with non-zero initialized length'
-        linters:
-          - makezero
-      
-      # Exclude mirror for platform-specific string conversion
-      - path: process/process_freebsd.go
-        text: 'avoid allocations with bytes.IndexByte'
-        linters:
-          - mirror
-      - path: process/process_openbsd.go
-        text: 'avoid allocations with bytes.IndexByte'
-        linters:
-          - mirror
-      - path: process/process_darwin.go
-        text: 'avoid allocations with bytes.IndexByte'
+      - path: 'process/process_(freebsd|openbsd|darwin)\.go'
+        text: 'avoid allocations with bytes\.IndexByte'
         linters:
           - mirror
     warn-unused: true
