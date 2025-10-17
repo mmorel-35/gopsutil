@@ -12,8 +12,8 @@ formatters:
         - prefix(github.com/shirou)
     goimports:
       # Put imports beginning with prefix after 3rd-party packages.
-      # It's a comma-separated list of prefixes.
-      local-prefixes: github.com/shirou/gopsutil
+      local-prefixes:
+        - github.com/shirou/gopsutil
 issues:
   max-same-issues: 0
 linters:
