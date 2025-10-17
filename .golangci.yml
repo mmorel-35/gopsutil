@@ -154,10 +154,11 @@ linters:
       os-create-temp: false
       os-mkdir-temp: false
     errcheck:
-      # List of functions to exclude from checking, where each entry is a single function to exclude.
-      # Recommendations: check-shadowing, check-range-loop-pointer
+      # Check type assertions for potential panics from failed assertions
       check-type-assertions: true
+      # Don't check for blank assignments (e.g., _ = someFunc())
       check-blank: false
+      # Common patterns where error checking is typically omitted
       exclude-functions:
         - (io.Closer).Close
     godot:
@@ -176,9 +177,11 @@ linters:
         - all
         - -ST1003  # MixedCaps issues (covered by revive)
     unconvert:
-      # Remove all unnecessary type conversions
+      # Remove unnecessary type conversions
       fast-math: false
-      safe: false
+      # Use safe mode to avoid removing conversions that may be needed for certain architectures
+      # gopsutil supports many platforms, so we want to be conservative here
+      safe: true
   exclusions:
     generated: lax
     presets:
