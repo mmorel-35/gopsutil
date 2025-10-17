@@ -14,7 +14,7 @@ import (
 	"github.com/shirou/gopsutil/v4/internal/common"
 )
 
-// Deprecated: use process.PidsWithContext instead
+// Deprecated: use process.PidsWithContext instead.
 func PidsWithContext(_ context.Context) ([]int32, error) {
 	return nil, common.ErrNotImplementedError
 }
@@ -156,7 +156,7 @@ func parseNetstatUnixLine(f []string) (ConnectionStat, error) {
 }
 
 // Return true if proto is the corresponding to the kind parameter
-// Only for Inet lines
+// Only for Inet lines.
 func hasCorrectInetProto(kind, proto string) bool {
 	switch kind {
 	case "all", "inet":

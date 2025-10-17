@@ -16,26 +16,26 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-// for double values
+// for double values.
 type PDH_FMT_COUNTERVALUE_DOUBLE struct { //nolint:revive //FIXME
 	CStatus     uint32
 	DoubleValue float64
 }
 
-// for 64 bit integer values
+// for 64 bit integer values.
 type PDH_FMT_COUNTERVALUE_LARGE struct { //nolint:revive //FIXME
 	CStatus    uint32
 	LargeValue int64
 }
 
-// for long values
+// for long values.
 type PDH_FMT_COUNTERVALUE_LONG struct { //nolint:revive //FIXME
 	CStatus   uint32
 	LongValue int32
 	padding   [4]byte
 }
 
-// windows system const
+// windows system const.
 const (
 	ERROR_SUCCESS        = 0
 	ERROR_FILE_NOT_FOUND = 2
@@ -94,7 +94,7 @@ type FILETIME struct {
 	DwHighDateTime uint32
 }
 
-// borrowed from net/interface_windows.go
+// borrowed from net/interface_windows.go.
 func BytePtrToString(p *uint8) string {
 	a := (*[10000]uint8)(unsafe.Pointer(p))
 	i := 0
@@ -123,7 +123,7 @@ func CreateQuery() (windows.Handle, error) {
 	return query, nil
 }
 
-// CreateCounter with a PdhAddEnglishCounterW call
+// CreateCounter with a PdhAddEnglishCounterW call.
 func CreateCounter(query windows.Handle, pname, cname string) (*CounterInfo, error) {
 	var counter windows.Handle
 	r, _, err := PdhAddEnglishCounterW.Call(
@@ -197,7 +197,7 @@ func ProcessorQueueLengthCounter() (*Win32PerformanceCounter, error) {
 	return NewWin32PerformanceCounter("processor_queue_length", `\System\Processor Queue Length`)
 }
 
-// WMIQueryWithContext - wraps wmi.Query with a timed-out context to avoid hanging
+// WMIQueryWithContext - wraps wmi.Query with a timed-out context to avoid hanging.
 func WMIQueryWithContext(ctx context.Context, query string, dst any, connectServerArgs ...any) error {
 	if _, ok := ctx.Deadline(); !ok {
 		ctxTimeout, cancel := context.WithTimeout(ctx, Timeout)

@@ -137,11 +137,11 @@ const swapCommand = "swap"
 // The blockSize as reported by `swap -l`. See https://docs.oracle.com/cd/E23824_01/html/821-1459/fsswap-52195.html
 const blockSize = 512
 
-// swapctl column indexes
+// swapctl column indexes.
 const (
 	nameCol = 0
 	// devCol = 1
-	// swaploCol = 2
+	// swaploCol = 2.
 	totalBlocksCol = 3
 	freeBlocksCol  = 4
 )

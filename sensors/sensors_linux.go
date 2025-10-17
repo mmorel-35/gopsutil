@@ -14,7 +14,7 @@ import (
 	"github.com/shirou/gopsutil/v4/internal/common"
 )
 
-// from utmp.h
+// from utmp.h.
 const (
 	hostTemperatureScale = 1000.0
 )

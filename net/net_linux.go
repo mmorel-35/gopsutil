@@ -223,14 +223,14 @@ func FilterCountersWithContext(ctx context.Context) ([]FilterStat, error) {
 	return stats, nil
 }
 
-// ConntrackStatsWithContext returns more detailed info about the conntrack table
+// ConntrackStatsWithContext returns more detailed info about the conntrack table.
 func ConntrackStatsWithContext(ctx context.Context, percpu bool) ([]ConntrackStat, error) {
 	return conntrackStatsFromFile(common.HostProcWithContext(ctx, "net/stat/nf_conntrack"), percpu)
 }
 
 // conntrackStatsFromFile returns more detailed info about the conntrack table
 // from `filename`
-// If 'percpu' is false, the result will contain exactly one item with totals/summary
+// If 'percpu' is false, the result will contain exactly one item with totals/summary.
 func conntrackStatsFromFile(filename string, percpu bool) ([]ConntrackStat, error) {
 	lines, err := common.ReadLines(filename)
 	if err != nil {
@@ -541,13 +541,13 @@ func PidsWithContext(ctx context.Context) ([]int32, error) {
 // Note: the following is based off process_linux structs and methods
 // we need these to fetch the owner of a process ID
 // FIXME: Import process occurs import cycle.
-// see remarks on pids()
+// see remarks on pids().
 type process struct {
 	Pid  int32 `json:"pid"`
 	uids []int32
 }
 
-// Uids returns user ids of the process as a slice of the int
+// Uids returns user ids of the process as a slice of the int.
 func (p *process) getUids(ctx context.Context) ([]int32, error) {
 	err := p.fillFromStatus(ctx)
 	if err != nil {
@@ -556,7 +556,7 @@ func (p *process) getUids(ctx context.Context) ([]int32, error) {
 	return p.uids, nil
 }
 
-// Get status from /proc/(pid)/status
+// Get status from /proc/(pid)/status.
 func (p *process) fillFromStatus(ctx context.Context) error {
 	pid := p.Pid
 	statPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "status")
@@ -613,7 +613,7 @@ func getProcInodesAllWithContext(ctx context.Context, root string, maxConn int) 
 // decodeAddress decode addresse represents addr in proc/net/*
 // ex:
 // "0500000A:0016" -> "10.0.0.5", 22
-// "0085002452100113070057A13F025401:0035" -> "2400:8500:1301:1052:a157:7:154:23f", 53
+// "0085002452100113070057A13F025401:0035" -> "2400:8500:1301:1052:a157:7:154:23f", 53.
 func decodeAddress(family uint32, src string) (Addr, error) {
 	t := strings.Split(src, ":")
 	if len(t) != 2 {
@@ -655,7 +655,7 @@ func Reverse(s []byte) []byte {
 	return s
 }
 
-// parseIPv6HexString parse array of bytes to IPv6 string
+// parseIPv6HexString parse array of bytes to IPv6 string.
 func parseIPv6HexString(src []byte) (net.IP, error) {
 	if len(src) != 16 {
 		return nil, errors.New("invalid IPv6 string")

@@ -131,7 +131,7 @@ func testPercent(t *testing.T, percpu bool) {
 			}
 		}
 	}
-	for i := 0; i < testCount; i++ {
+	for range testCount {
 		duration := time.Duration(10) * time.Microsecond
 		v, err := Percent(duration, percpu)
 		if errors.Is(err, common.ErrNotImplementedError) {
@@ -166,7 +166,7 @@ func testPercentLastUsed(t *testing.T, percpu bool) {
 			}
 		}
 	}
-	for i := 0; i < testCount; i++ {
+	for range testCount {
 		v, err := Percent(0, percpu)
 		if errors.Is(err, common.ErrNotImplementedError) {
 			t.Skip("not implemented")

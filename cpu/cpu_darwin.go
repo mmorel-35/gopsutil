@@ -17,7 +17,7 @@ import (
 	"github.com/shirou/gopsutil/v4/internal/common"
 )
 
-// sys/resource.h
+// sys/resource.h.
 const (
 	CPUser    = 0
 	cpNice    = 1
@@ -27,7 +27,7 @@ const (
 	cpUStates = 5
 )
 
-// mach/machine.h
+// mach/machine.h.
 const (
 	cpuStateUser   = 0
 	cpuStateSystem = 1
@@ -36,7 +36,7 @@ const (
 	cpuStateMax    = 4
 )
 
-// mach/processor_info.h
+// mach/processor_info.h.
 const (
 	processorCpuLoadInfo = 2 //nolint:revive //FIXME
 )
@@ -45,7 +45,7 @@ type hostCpuLoadInfoData struct { //nolint:revive //FIXME
 	cpuTicks [cpuStateMax]uint32
 }
 
-// default value. from time.h
+// default value. from time.h.
 var ClocksPerSec = float64(128)
 
 func init() {
@@ -74,7 +74,7 @@ func TimesWithContext(_ context.Context, percpu bool) ([]TimesStat, error) {
 	return allCPUTimes(lib)
 }
 
-// Returns only one CPUInfoStat on FreeBSD
+// Returns only one CPUInfoStat on FreeBSD.
 func Info() ([]InfoStat, error) {
 	return InfoWithContext(context.Background())
 }
@@ -162,7 +162,7 @@ func perCPUTimes(machLib *common.Library) ([]TimesStat, error) {
 	ret := []TimesStat{}
 	loads := unsafe.Slice(cpuload, ncpu)
 
-	for i := 0; i < int(ncpu); i++ {
+	for i := range ncpu {
 		c := TimesStat{
 			CPU:    fmt.Sprintf("cpu%d", i),
 			User:   float64(loads[i].cpuTicks[cpuStateUser]) / ClocksPerSec,

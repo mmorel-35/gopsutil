@@ -16,10 +16,10 @@ import (
 )
 
 const (
-	// sys/sched.h
+	// sys/sched.h.
 	cpuOnline = 0x0001 // CPUSTATS_ONLINE
 
-	// sys/sysctl.h
+	// sys/sysctl.h.
 	ctlKern      = 1  // "high kernel": proc, limits
 	ctlHw        = 6  // CTL_HW
 	smt          = 24 // HW_SMT
@@ -104,7 +104,7 @@ func TimesWithContext(_ context.Context, percpu bool) ([]TimesStat, error) {
 	return ret, nil
 }
 
-// Returns only one (minimal) CPUInfoStat on OpenBSD
+// Returns only one (minimal) CPUInfoStat on OpenBSD.
 func Info() ([]InfoStat, error) {
 	return InfoWithContext(context.Background())
 }

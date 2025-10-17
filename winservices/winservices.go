@@ -29,7 +29,7 @@ type ServiceStatus struct {
 	Win32ExitCode uint32
 }
 
-// NewService create and return a windows Service
+// NewService create and return a windows Service.
 func NewService(name string) (*Service, error) {
 	// call windows service function need to OpenService handler,
 	// so first call func OpenService to get the specified service handler.
@@ -43,12 +43,12 @@ func NewService(name string) (*Service, error) {
 	}, nil
 }
 
-// GetServiceDetail get a windows service by name
+// GetServiceDetail get a windows service by name.
 func (s *Service) GetServiceDetail() error {
 	return s.GetServiceDetailWithContext(context.Background())
 }
 
-// GetServiceDetailWithContext get a windows service by name
+// GetServiceDetailWithContext get a windows service by name.
 func (s *Service) GetServiceDetailWithContext(ctx context.Context) error {
 	config, err := s.QueryServiceConfigWithContext(ctx)
 	if err != nil {
@@ -65,7 +65,7 @@ func (s *Service) GetServiceDetailWithContext(ctx context.Context) error {
 	return nil
 }
 
-// QueryServiceConfig return the specified service config
+// QueryServiceConfig return the specified service config.
 func (s *Service) QueryServiceConfig() (mgr.Config, error) {
 	return s.QueryServiceConfigWithContext(context.Background())
 }
@@ -76,12 +76,12 @@ func (s *Service) QueryServiceConfigWithContext(_ context.Context) (mgr.Config, 
 	return s.srv.Config()
 }
 
-// QueryStatus return the specified name service currentState and ControlsAccepted
+// QueryStatus return the specified name service currentState and ControlsAccepted.
 func (s *Service) QueryStatus() (ServiceStatus, error) {
 	return s.QueryStatusWithContext(context.Background())
 }
 
-// QueryStatusWithContext return the specified name service currentState and ControlsAccepted
+// QueryStatusWithContext return the specified name service currentState and ControlsAccepted.
 func (s *Service) QueryStatusWithContext(_ context.Context) (ServiceStatus, error) {
 	var p *windows.SERVICE_STATUS_PROCESS
 	var bytesNeeded uint32
@@ -106,7 +106,7 @@ func (s *Service) QueryStatusWithContext(_ context.Context) (ServiceStatus, erro
 }
 
 // ListServices return all windows service
-// reference to golang.org/x/sys/windows/svc/mgr#ListServices()
+// reference to golang.org/x/sys/windows/svc/mgr#ListServices().
 func ListServices() ([]Service, error) {
 	m, err := openSCManager()
 	if err != nil {

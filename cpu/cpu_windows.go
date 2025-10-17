@@ -69,7 +69,7 @@ const (
 	// https://processhacker.sourceforge.io/doc/ntexapi_8h.html#ad5d815b48e8f4da1ef2eb7a2f18a54e0
 	win32_SystemProcessorPerformanceInformationClass = 8 //nolint:revive //FIXME
 
-	// size of systemProcessorPerformanceInfoSize in memory
+	// size of systemProcessorPerformanceInfoSize in memory.
 	win32_SystemProcessorPerformanceInfoSize = uint32(unsafe.Sizeof(win32_SystemProcessorPerformanceInformation{})) //nolint:revive //FIXME
 
 	firmwareTableProviderSignatureRSMB = 0x52534d42 // "RSMB"  https://gitlab.winehq.org/dreamer/wine/-/blame/wine-7.0-rc6/dlls/ntdll/unix/system.c#L230
@@ -97,7 +97,7 @@ const (
 	processorInformation = 11
 )
 
-// Times returns times stat per cpu and combined for all CPUs
+// Times returns times stat per cpu and combined for all CPUs.
 func Times(percpu bool) ([]TimesStat, error) {
 	return TimesWithContext(context.Background(), percpu)
 }
@@ -241,7 +241,7 @@ func InfoWithContext(ctx context.Context) ([]InfoStat, error) {
 	return ret, nil
 }
 
-// perCPUTimes returns times stat per cpu, per core and overall for all CPUs
+// perCPUTimes returns times stat per cpu, per core and overall for all CPUs.
 func perCPUTimes() ([]TimesStat, error) {
 	var ret []TimesStat
 	stats, err := perfInfo()
@@ -261,7 +261,7 @@ func perCPUTimes() ([]TimesStat, error) {
 	return ret, nil
 }
 
-// makes call to Windows API function to retrieve performance information for each core
+// makes call to Windows API function to retrieve performance information for each core.
 func perfInfo() ([]win32_SystemProcessorPerformanceInformation, error) {
 	// Make maxResults large for safety.
 	// We can't invoke the api call with a results array that's too small.

@@ -3,29 +3,44 @@ formatters:
   enable:
     - gci
     - gofumpt
+    - goimports
   settings:
     gci:
       sections:
         - standard
         - default
         - prefix(github.com/shirou)
+    goimports:
+      # Put imports beginning with prefix after 3rd-party packages.
+      local-prefixes:
+        - github.com/shirou/gopsutil
 issues:
   max-same-issues: 0
 linters:
   enable:
     - asciicheck
+    - bodyclose
     - contextcheck
+    - copyloopvar
     - durationcheck
+    - errcheck
+    - errname
     - errorlint
     - fatcontext
+    - gochecksumtype
     - gocritic
+    - godot
     - gomodguard
     - gosec
     - govet
     - importas
     - ineffassign
+    - intrange
+    - makezero
+    - mirror
     - misspell
     - nakedret
+    - nilerr
     - noctx
     - nolintlint
     - perfsprint
@@ -34,11 +49,12 @@ linters:
     - staticcheck
     - testifylint
     - thelper
+    - unconvert
     - unparam
-    - usetesting
-  disable:
-    - errcheck
     - unused
+    - usestdlibvars
+    - usetesting
+  disable: []
   settings:
     gocritic:
       disabled-checks:
@@ -59,7 +75,11 @@ linters:
                 - os
     gosec:
       excludes:
-        - G115
+        - G115  # Integer overflow conversion - already excluded
+        - G304  # File path inclusion - legitimate for system monitoring library
+        - G103  # Use of unsafe - needed for endianness detection
+        - G104  # Unhandled errors - covered by errcheck linter
+        - G204  # Subprocess with variable - legitimate for testing
     govet:
       disable:
         - copylocks
@@ -132,25 +152,118 @@ linters:
         - -SA4003 # Comparing unsigned values against negative values is pointless
         - -SA4004 # The loop exits unconditionally after one iteration
         - -SA4008 # The variable in the loop condition never changes, are you incrementing the wrong variable?
+        - -SA4011 # Break statement with no effect - Windows-specific loop patterns
         - -SA5003 # Defers in infinite loops will never execute
         - -SA9003 # Empty body in an if or else branch
+        - -ST1000 # Package comment format - SPDX headers take precedence
         - -ST1003 # Poorly chosen identifier
+        - -ST1020 # Comment format for exported functions
+        - -ST1021 # Comment format for exported types
+        - -ST1022 # Comment format for exported variables
     testifylint:
       enable-all: true
     usetesting:
       os-create-temp: false
       os-mkdir-temp: false
+    errcheck:
+      # Check type assertions for potential panics from failed assertions
+      check-type-assertions: true
+      # Don't check for blank assignments (e.g., _ = someFunc())
+      check-blank: false
+      # Common patterns where error checking is typically omitted
+      exclude-functions:
+        - (io.Closer).Close
+        - (*os.File).Close
+        - (net.Listener).Close
+        - (net.Conn).Close
+        - os.Remove
+        - os.RemoveAll
+        - purego.Dlclose
+        - (*registry.Key).SetDWordValue
+        - (*registry.Key).Close
+        - (*smc.Connection).Close
+        - (*windows.Token).Close
+        - windows.LocalFree
+        - windows.CloseHandle
+        - syscall.CloseHandle
+        - (*os.Process).Release
+    godot:
+      # Comments to be checked: `declarations`, `toplevel`, or `all`.
+      scope: declarations
+      exclude:
+        # Exclude sentence fragments.
+        - "^\\+build"
+      capital: false
+    unconvert:
+      # Remove unnecessary type conversions
+      fast-math: false
+      # Use safe mode to avoid removing conversions that may be needed for certain architectures
+      # gopsutil supports many platforms, so we want to be conservative here
+      safe: true
   exclusions:
     generated: lax
-    presets:
-      - comments
-      - common-false-positives
-      - legacy
-      - std-error-handling
     rules:
+      # Exclude govet shadow warnings for err variable
       - text: 'shadow: declaration of "err" shadows declaration at line'
         linters:
           - govet
+      
+      # Exclude errname for public API error names (breaking changes)
+      - text: '(error type name `Warnings`|sentinel error name `(Error\w+|loadErr)`).*(Xxx|Err)'
+        linters:
+          - errname
+      
+      # Exclude unused for platform-specific code (used in other OS builds)
+      - text: 'var invoke is unused'
+        linters:
+          - unused
+      - linters:
+          - unused
+        path: _test\.go
+      - linters:
+          - unused
+        path: 'process/process(_\w+)?\.go'
+      - linters:
+          - unused
+        path: '(host|cpu|disk|load|mem|net|sensors|docker)/.*_(windows|aix|bsd|posix|darwin|freebsd|386|solaris).*\.go'
+      - linters:
+          - unused
+        path: 'internal/common/common(_windows)?\.go'
+      - linters:
+          - unused
+        path: '(host|cpu|docker)/\w+\.go'
+        text: '(func|var|const|type).* is unused'
+      
+      # Exclude errcheck for cleanup operations and Windows syscalls
+      - text: '(\.Call|unsafe\.Sizeof|token\.Close|windows\.(LocalFree|CloseHandle|RegCloseKey)|key\.(Close|SetDWordValue)|smc\.Close|purego\.Dlclose|m\.close).*is not checked'
+        linters:
+          - errcheck
+      - path: '(net/net_windows|winservices/).*\.go'
+        linters:
+          - errcheck
+      - path: _test\.go
+        text: 'Error return value of `l\.Close` is not checked'
+        linters:
+          - errcheck
+      
+      # Exclude platform-specific linter warnings
+      - text: 'unnecessary conversion'
+        linters:
+          - unconvert
+      - text: 'error is not nil .* but it returns nil'
+        linters:
+          - nilerr
+      - text: 'for loop can be changed to use an integer range'
+        linters:
+          - intrange
+      - path: '(process/process_linux|net/net_darwin)\.go'
+        text: 'append to slice `ret` with non-zero initialized length'
+        linters:
+          - makezero
+      - path: 'process/process_(freebsd|openbsd|darwin)\.go'
+        text: 'avoid allocations with bytes\.IndexByte'
+        linters:
+          - mirror
     warn-unused: true
 output:
   show-stats: false

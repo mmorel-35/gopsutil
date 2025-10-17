@@ -120,7 +120,7 @@ func parseUptime(uptime string) uint64 {
 	return (days * 24 * 60) + (hours * 60) + mins
 }
 
-// This is a weak implementation due to the limitations on retrieving this data in AIX
+// This is a weak implementation due to the limitations on retrieving this data in AIX.
 func UsersWithContext(ctx context.Context) ([]UserStat, error) {
 	var ret []UserStat
 	out, err := invoke.CommandWithContext(ctx, "w")

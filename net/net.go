@@ -25,7 +25,7 @@ type IOCountersStat struct {
 	Fifoout     uint64 `json:"fifoout"`     // total number of FIFO buffers errors while sending
 }
 
-// Addr is implemented compatibility to psutil
+// Addr is implemented compatibility to psutil.
 type Addr struct {
 	IP   string `json:"ip"`
 	Port uint32 `json:"port"`
@@ -42,18 +42,18 @@ type ConnectionStat struct {
 	Pid    int32   `json:"pid"`
 }
 
-// System wide stats about different network protocols
+// System wide stats about different network protocols.
 type ProtoCountersStat struct {
 	Protocol string           `json:"protocol"`
 	Stats    map[string]int64 `json:"stats"`
 }
 
-// NetInterfaceAddr is designed for represent interface addresses
+// NetInterfaceAddr is designed for represent interface addresses.
 type InterfaceAddr struct {
 	Addr string `json:"addr"`
 }
 
-// InterfaceAddrList is a list of InterfaceAddr
+// InterfaceAddrList is a list of InterfaceAddr.
 type InterfaceAddrList []InterfaceAddr
 
 type InterfaceStat struct {
@@ -65,7 +65,7 @@ type InterfaceStat struct {
 	Addrs        InterfaceAddrList `json:"addrs"`
 }
 
-// InterfaceStatList is a list of InterfaceStat
+// InterfaceStatList is a list of InterfaceStat.
 type InterfaceStatList []InterfaceStat
 
 type FilterStat struct {
@@ -73,7 +73,7 @@ type FilterStat struct {
 	ConnTrackMax   int64 `json:"connTrackMax"`
 }
 
-// ConntrackStat has conntrack summary info
+// ConntrackStat has conntrack summary info.
 type ConntrackStat struct {
 	Entries       uint32 `json:"entries"`       // Number of entries in the conntrack table
 	Searched      uint32 `json:"searched"`      // Number of conntrack table lookups performed
@@ -291,7 +291,7 @@ func IOCountersByFile(pernic bool, filename string) ([]IOCountersStat, error) {
 // just the protocols in the list are returned.
 // Available protocols:
 // [ip,icmp,icmpmsg,tcp,udp,udplite]
-// Not Implemented for FreeBSD, Windows, OpenBSD, Darwin
+// Not Implemented for FreeBSD, Windows, OpenBSD, Darwin.
 func ProtoCounters(protocols []string) ([]ProtoCountersStat, error) {
 	return ProtoCountersWithContext(context.Background(), protocols)
 }
@@ -303,7 +303,7 @@ func FilterCounters() ([]FilterStat, error) {
 	return FilterCountersWithContext(context.Background())
 }
 
-// ConntrackStats returns more detailed info about the conntrack table
+// ConntrackStats returns more detailed info about the conntrack table.
 func ConntrackStats(percpu bool) ([]ConntrackStat, error) {
 	return ConntrackStatsWithContext(context.Background(), percpu)
 }

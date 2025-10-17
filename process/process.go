@@ -44,23 +44,23 @@ type Process struct {
 	tgid int32
 }
 
-// Process status
+// Process status.
 const (
-	// Running marks a task a running or runnable (on the run queue)
+	// Running marks a task a running or runnable (on the run queue).
 	Running = "running"
-	// Blocked marks a task waiting on a short, uninterruptible operation (usually I/O)
+	// Blocked marks a task waiting on a short, uninterruptible operation (usually I/O).
 	Blocked = "blocked"
-	// Idle marks a task sleeping for more than about 20 seconds
+	// Idle marks a task sleeping for more than about 20 seconds.
 	Idle = "idle"
-	// Lock marks a task waiting to acquire a lock
+	// Lock marks a task waiting to acquire a lock.
 	Lock = "lock"
-	// Sleep marks task waiting for short, interruptible operation
+	// Sleep marks task waiting for short, interruptible operation.
 	Sleep = "sleep"
-	// Stop marks a stopped process
+	// Stop marks a stopped process.
 	Stop = "stop"
-	// Wait marks an idle interrupt thread (or paging in pre 2.6.xx Linux)
+	// Wait marks an idle interrupt thread (or paging in pre 2.6.xx Linux).
 	Wait = "wait"
-	// Zombie marks a defunct process, terminated but not reaped by its parent
+	// Zombie marks a defunct process, terminated but not reaped by its parent.
 	Zombie = "zombie"
 
 	// Solaris states. See https://github.com/collectd/collectd/blob/1da3305c10c8ff9a63081284cf3d4bb0f6daffd8/src/processes.c#L2115
@@ -130,7 +130,7 @@ type PageFaultsStat struct {
 }
 
 // Resource limit constants are from /usr/include/x86_64-linux-gnu/bits/resource.h
-// from libc6-dev package in Ubuntu 16.10
+// from libc6-dev package in Ubuntu 16.10.
 const (
 	RLIMIT_CPU        int32 = 0
 	RLIMIT_FSIZE      int32 = 1
@@ -224,7 +224,7 @@ func NewProcessWithContext(ctx context.Context, pid int32) (*Process, error) {
 	if !exists {
 		return p, ErrorProcessNotRunning
 	}
-	p.CreateTimeWithContext(ctx)
+	_, _ = p.CreateTimeWithContext(ctx)
 	return p, nil
 }
 
@@ -332,7 +332,7 @@ func calculatePercent(t1, t2 *cpu.TimesStat, delta float64, numcpu int) float64 
 	return overallPercent
 }
 
-// MemoryPercent returns how many percent of the total RAM this process uses
+// MemoryPercent returns how many percent of the total RAM this process uses.
 func (p *Process) MemoryPercent() (float32, error) {
 	return p.MemoryPercentWithContext(context.Background())
 }
@@ -353,7 +353,7 @@ func (p *Process) MemoryPercentWithContext(ctx context.Context) (float32, error)
 	return (100 * float32(used) / float32(total)), nil
 }
 
-// CPUPercent returns how many percent of the CPU time this process uses
+// CPUPercent returns how many percent of the CPU time this process uses.
 func (p *Process) CPUPercent() (float64, error) {
 	return p.CPUPercentWithContext(context.Background())
 }
@@ -378,7 +378,7 @@ func (p *Process) CPUPercentWithContext(ctx context.Context) (float64, error) {
 	return 100 * cput.Total() / totalTime, nil
 }
 
-// Groups returns all group IDs(include supplementary groups) of the process as a slice of the int
+// Groups returns all group IDs(include supplementary groups) of the process as a slice of the int.
 func (p *Process) Groups() ([]uint32, error) {
 	return p.GroupsWithContext(context.Background())
 }
@@ -448,12 +448,12 @@ func (p *Process) Foreground() (bool, error) {
 	return p.ForegroundWithContext(context.Background())
 }
 
-// Uids returns user ids of the process as a slice of the int
+// Uids returns user ids of the process as a slice of the int.
 func (p *Process) Uids() ([]uint32, error) {
 	return p.UidsWithContext(context.Background())
 }
 
-// Gids returns group ids of the process as a slice of the int
+// Gids returns group ids of the process as a slice of the int.
 func (p *Process) Gids() ([]uint32, error) {
 	return p.GidsWithContext(context.Background())
 }
@@ -558,7 +558,7 @@ func (p *Process) ConnectionsMax(maxConn int) ([]net.ConnectionStat, error) {
 	return p.ConnectionsMaxWithContext(context.Background(), maxConn)
 }
 
-// MemoryMaps get memory maps from /proc/(pid)/smaps
+// MemoryMaps get memory maps from /proc/(pid)/smaps.
 func (p *Process) MemoryMaps(grouped bool) (*[]MemoryMapsStat, error) {
 	return p.MemoryMapsWithContext(context.Background(), grouped)
 }

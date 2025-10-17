@@ -207,7 +207,7 @@ func (p *Process) GroupsWithContext(_ context.Context) ([]uint32, error) {
 	}
 
 	groups := make([]uint32, k.Ngroups)
-	for i := int16(0); i < k.Ngroups; i++ {
+	for i := range int16(k.Ngroups) {
 		groups[i] = uint32(k.Groups[i])
 	}
 
@@ -327,7 +327,7 @@ func ProcessesWithContext(ctx context.Context) ([]*Process, error) {
 	count := int(length / uint64(sizeOfKinfoProc))
 
 	// parse buf to procs
-	for i := 0; i < count; i++ {
+	for i := range count {
 		b := buf[i*sizeOfKinfoProc : (i+1)*sizeOfKinfoProc]
 		k, err := parseKinfoProc(b)
 		if err != nil {

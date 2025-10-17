@@ -21,7 +21,7 @@ func getHwMemsize() (uint64, error) {
 	return total, nil
 }
 
-// xsw_usage in sys/sysctl.h
+// xsw_usage in sys/sysctl.h.
 type swapUsage struct {
 	Total     uint64
 	Avail     uint64

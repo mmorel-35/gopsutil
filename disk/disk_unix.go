@@ -53,7 +53,7 @@ func UsageWithContext(_ context.Context, path string) (*UsageStat, error) {
 	return ret, nil
 }
 
-// Unescape escaped octal chars (like space 040, ampersand 046 and backslash 134) to their real value in fstab fields issue#555
+// Unescape escaped octal chars (like space 040, ampersand 046 and backslash 134) to their real value in fstab fields issue#555.
 func unescapeFstab(path string) string {
 	escaped, err := strconv.Unquote(`"` + path + `"`)
 	if err != nil {

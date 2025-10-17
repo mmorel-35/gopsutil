@@ -106,7 +106,7 @@ func ParseNetstat(output string, mode string,
 	return nil
 }
 
-// Deprecated: use process.PidsWithContext instead
+// Deprecated: use process.PidsWithContext instead.
 func PidsWithContext(_ context.Context) ([]int32, error) {
 	return nil, common.ErrNotImplementedError
 }

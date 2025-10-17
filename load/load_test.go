@@ -76,7 +76,7 @@ func BenchmarkLoad(b *testing.B) {
 	})
 
 	b.Run("SubsequentCalls", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
+		for range b.N {
 			loadAvg(b)
 		}
 	})

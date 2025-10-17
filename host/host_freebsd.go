@@ -63,7 +63,7 @@ func UsersWithContext(_ context.Context) ([]UserStat, error) {
 	entrySize := sizeOfUtmpx
 	count := len(buf) / entrySize
 
-	for i := 0; i < count; i++ {
+	for i := range count {
 		b := buf[i*sizeOfUtmpx : (i+1)*sizeOfUtmpx]
 		var u Utmpx
 		br := bytes.NewReader(b)
@@ -103,7 +103,7 @@ func VirtualizationWithContext(_ context.Context) (string, string, error) {
 	return "", "", common.ErrNotImplementedError
 }
 
-// before 9.0
+// before 9.0.
 func getUsersFromUtmp(utmpfile string) ([]UserStat, error) {
 	var ret []UserStat
 	file, err := os.Open(utmpfile)
@@ -120,7 +120,7 @@ func getUsersFromUtmp(utmpfile string) ([]UserStat, error) {
 	entrySize := int(unsafe.Sizeof(Utmp{}))
 	count := len(buf) / entrySize
 
-	for i := 0; i < count; i++ {
+	for i := range count {
 		b := buf[i*entrySize : i*entrySize+entrySize]
 		var u Utmp
 		br := bytes.NewReader(b)

@@ -257,7 +257,7 @@ func getNetStatWithKind(kindType netConnectionKindType) ([]ConnectionStat, error
 	return nil, fmt.Errorf("invalid kind filename, %s", kindType.filename)
 }
 
-// Deprecated: use process.PidsWithContext instead
+// Deprecated: use process.PidsWithContext instead.
 func PidsWithContext(_ context.Context) ([]int32, error) {
 	return nil, common.ErrNotImplementedError
 }
@@ -415,7 +415,7 @@ func getTCPConnections(family uint32) ([]ConnectionStat, error) {
 		return nil, nil
 	}
 
-	for i := 0; i < length; i++ {
+	for range length {
 		switch family {
 		case kindTCP4.family:
 			mibs := (*mibTCPRowOwnerPid)(unsafe.Pointer(&buf[index]))
@@ -495,7 +495,7 @@ func getUDPConnections(family uint32) ([]ConnectionStat, error) {
 		return nil, nil
 	}
 
-	for i := 0; i < length; i++ {
+	for range length {
 		switch family {
 		case kindUDP4.family:
 			mibs := (*mibUDPRowOwnerPid)(unsafe.Pointer(&buf[index]))
@@ -553,7 +553,7 @@ func getUintptrFromBool(b bool) uintptr {
 
 const anySize = 1
 
-// type MIB_TCP_STATE int32
+// type MIB_TCP_STATE int32.
 type mibTCPState int32
 
 type tcpTableClass int32
@@ -721,7 +721,7 @@ func parseIPv4HexString(addr uint32) string {
 
 func parseIPv6HexString(addr [16]byte) string {
 	var ret [16]byte
-	for i := 0; i < 16; i++ {
+	for i := range 16 {
 		ret[i] = uint8(addr[i])
 	}
 

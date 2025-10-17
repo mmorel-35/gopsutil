@@ -112,7 +112,7 @@ func parseNetstatOutput(output string) ([]netstatInterface, error) {
 		return interfaces, nil
 	}
 
-	for index := 0; index < numberInterfaces; index++ {
+	for index := range numberInterfaces {
 		nsIface := netstatInterface{}
 		if nsIface.stat, nsIface.linkID, err = parseNetstatLine(lines[index+1]); err != nil {
 			return nil, err
@@ -122,7 +122,7 @@ func parseNetstatOutput(output string) ([]netstatInterface, error) {
 	return interfaces, nil
 }
 
-// map that hold the name of a network interface and the number of usage
+// map that hold the name of a network interface and the number of usage.
 type mapInterfaceNameUsage map[string]uint
 
 func newMapInterfaceNameUsage(ifaces []netstatInterface) mapInterfaceNameUsage {
@@ -160,7 +160,7 @@ func (mapi mapInterfaceNameUsage) notTruncated() []string {
 	return output
 }
 
-// Deprecated: use process.PidsWithContext instead
+// Deprecated: use process.PidsWithContext instead.
 func PidsWithContext(_ context.Context) ([]int32, error) {
 	return nil, common.ErrNotImplementedError
 }
@@ -169,7 +169,7 @@ func PidsWithContext(_ context.Context) ([]int32, error) {
 // Name  Mtu   Network       Address            Ipkts Ierrs     Ibytes    Opkts Oerrs     Obytes  Coll Drop
 // lo0   16384 <Link#1>                        869107     0  169411755   869107     0  169411755     0   0
 // lo0   16384 ::1/128     ::1                 869107     -  169411755   869107     -  169411755     -   -
-// lo0   16384 127           127.0.0.1         869107     -  169411755   869107     -  169411755     -   -
+// lo0   16384 127           127.0.0.1         869107     -  169411755   869107     -  169411755     -   -.
 func IOCountersWithContext(ctx context.Context, pernic bool) ([]IOCountersStat, error) {
 	var (
 		ret      []IOCountersStat

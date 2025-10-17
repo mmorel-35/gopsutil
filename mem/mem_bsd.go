@@ -12,7 +12,7 @@ import (
 
 const swapCommand = "swapctl"
 
-// swapctl column indexes
+// swapctl column indexes.
 const (
 	nameCol     = 0
 	totalKiBCol = 1

@@ -72,7 +72,7 @@ type systemInfo struct {
 	wProcessorRevision          uint16
 }
 
-// Memory_info_ex is different between OSes
+// Memory_info_ex is different between OSes.
 type MemoryInfoExStat struct{}
 
 type MemoryMapsStat struct{}
@@ -184,13 +184,13 @@ type winLUID struct {
 	HighPart winLong
 }
 
-// LUID_AND_ATTRIBUTES
+// LUID_AND_ATTRIBUTES.
 type winLUIDAndAttributes struct {
 	Luid       winLUID
 	Attributes winDWord
 }
 
-// TOKEN_PRIVILEGES
+// TOKEN_PRIVILEGES.
 type winTokenPrivileges struct {
 	PrivilegeCount winDWord
 	Privileges     [1]winLUIDAndAttributes
@@ -859,7 +859,7 @@ func (p *Process) EnvironWithContext(ctx context.Context) ([]string, error) {
 	return envVars, nil
 }
 
-// retrieve Ppid in a thread-safe manner
+// retrieve Ppid in a thread-safe manner.
 func (p *Process) getPpid() int32 {
 	p.parentMutex.RLock()
 	defer p.parentMutex.RUnlock()
@@ -1203,7 +1203,7 @@ func convertUTF16ToString(src []byte) string {
 	codePoints := make([]uint16, srcLen)
 
 	srcIdx := 0
-	for i := 0; i < srcLen; i++ {
+	for i := range srcLen {
 		codePoints[i] = uint16(src[srcIdx]) | uint16(src[srcIdx+1])<<8
 		srcIdx += 2
 	}

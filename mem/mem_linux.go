@@ -446,13 +446,13 @@ func calculateAvailVmem(ctx context.Context, ret *VirtualMemoryStat, retEx *ExVi
 
 const swapsFilename = "swaps"
 
-// swaps file column indexes
+// swaps file column indexes.
 const (
 	nameCol = 0
-	// typeCol     = 1
+	// typeCol     = 1.
 	totalCol = 2
 	usedCol  = 3
-	// priorityCol = 4
+	// priorityCol = 4.
 )
 
 func SwapDevices() ([]*SwapDevice, error) {

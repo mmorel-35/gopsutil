@@ -115,7 +115,7 @@ func uptimeMillis() (uint64, error) {
 	return uint64(r1), nil
 }
 
-// cachedBootTime must be accessed via atomic.Load/StoreUint64
+// cachedBootTime must be accessed via atomic.Load/StoreUint64.
 var cachedBootTime uint64
 
 func BootTimeWithContext(_ context.Context) (uint64, error) {

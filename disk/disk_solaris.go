@@ -27,7 +27,7 @@ const (
 	// nearest power of two.
 	_DEFAULT_NUM_MOUNTS = 32
 
-	// _MNTTAB default place to read mount information
+	// _MNTTAB default place to read mount information.
 	_MNTTAB = "/etc/mnttab"
 )
 

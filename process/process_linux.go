@@ -38,7 +38,7 @@ func init() {
 	}
 }
 
-// MemoryInfoExStat is different between OSes
+// MemoryInfoExStat is different between OSes.
 type MemoryInfoExStat struct {
 	RSS    uint64 `json:"rss"`    // bytes
 	VMS    uint64 `json:"vms"`    // bytes
@@ -514,7 +514,7 @@ func limitToUint(val string) (uint64, error) {
 	return res, nil
 }
 
-// Get num_fds from /proc/(pid)/limits
+// Get num_fds from /proc/(pid)/limits.
 func (p *Process) fillFromLimitsWithContext(ctx context.Context) ([]RlimitStat, error) {
 	pid := p.Pid
 	limitsFile := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "limits")
@@ -607,7 +607,7 @@ func (p *Process) fillFromLimitsWithContext(ctx context.Context) ([]RlimitStat, 
 	return limitStats, nil
 }
 
-// Get list of /proc/(pid)/fd files
+// Get list of /proc/(pid)/fd files.
 func (p *Process) fillFromfdListWithContext(ctx context.Context) (string, []string, error) {
 	pid := p.Pid
 	statPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "fd")
@@ -620,7 +620,7 @@ func (p *Process) fillFromfdListWithContext(ctx context.Context) (string, []stri
 	return statPath, fnames, err
 }
 
-// Get num_fds from /proc/(pid)/fd
+// Get num_fds from /proc/(pid)/fd.
 func (p *Process) fillFromfdWithContext(ctx context.Context) (int32, []OpenFilesStat, error) {
 	statPath, fnames, err := p.fillFromfdListWithContext(ctx)
 	if err != nil {
@@ -649,7 +649,7 @@ func (p *Process) fillFromfdWithContext(ctx context.Context) (int32, []OpenFiles
 	return numFDs, openfiles, nil
 }
 
-// Get cwd from /proc/(pid)/cwd
+// Get cwd from /proc/(pid)/cwd.
 func (p *Process) fillFromCwdWithContext(ctx context.Context) (string, error) {
 	pid := p.Pid
 	cwdPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "cwd")
@@ -660,7 +660,7 @@ func (p *Process) fillFromCwdWithContext(ctx context.Context) (string, error) {
 	return string(cwd), nil
 }
 
-// Get exe from /proc/(pid)/exe
+// Get exe from /proc/(pid)/exe.
 func (p *Process) fillFromExeWithContext(ctx context.Context) (string, error) {
 	pid := p.Pid
 	exePath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "exe")
@@ -671,7 +671,7 @@ func (p *Process) fillFromExeWithContext(ctx context.Context) (string, error) {
 	return string(exe), nil
 }
 
-// Get cmdline from /proc/(pid)/cmdline
+// Get cmdline from /proc/(pid)/cmdline.
 func (p *Process) fillFromCmdlineWithContext(ctx context.Context) (string, error) {
 	pid := p.Pid
 	cmdPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "cmdline")
@@ -708,7 +708,7 @@ func (p *Process) fillSliceFromCmdlineWithContext(ctx context.Context) ([]string
 	return strParts, nil
 }
 
-// Get IO status from /proc/(pid)/io
+// Get IO status from /proc/(pid)/io.
 func (p *Process) fillFromIOWithContext(ctx context.Context) (*IOCountersStat, error) {
 	pid := p.Pid
 	ioPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "io")
@@ -748,7 +748,7 @@ func (p *Process) fillFromIOWithContext(ctx context.Context) (*IOCountersStat, e
 	return ret, nil
 }
 
-// Get memory info from /proc/(pid)/statm
+// Get memory info from /proc/(pid)/statm.
 func (p *Process) fillFromStatmWithContext(ctx context.Context) (*MemoryInfoStat, *MemoryInfoExStat, error) {
 	pid := p.Pid
 	memPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "statm")
@@ -800,7 +800,7 @@ func (p *Process) fillFromStatmWithContext(ctx context.Context) (*MemoryInfoStat
 	return memInfo, memInfoEx, nil
 }
 
-// Get name from /proc/(pid)/comm or /proc/(pid)/status
+// Get name from /proc/(pid)/comm or /proc/(pid)/status.
 func (p *Process) fillNameWithContext(ctx context.Context) error {
 	err := p.fillFromCommWithContext(ctx)
 	if err == nil && p.name != "" && len(p.name) < 15 {
@@ -809,7 +809,7 @@ func (p *Process) fillNameWithContext(ctx context.Context) error {
 	return p.fillFromStatusWithContext(ctx)
 }
 
-// Get name from /proc/(pid)/comm
+// Get name from /proc/(pid)/comm.
 func (p *Process) fillFromCommWithContext(ctx context.Context) error {
 	pid := p.Pid
 	statPath := common.HostProcWithContext(ctx, strconv.Itoa(int(pid)), "comm")
@@ -822,7 +822,7 @@ func (p *Process) fillFromCommWithContext(ctx context.Context) error {
 	return nil
 }
 
-// Get various status from /proc/(pid)/status
+// Get various status from /proc/(pid)/status.
 func (p *Process) fillFromStatus() error {
 	return p.fillFromStatusWithContext(context.Background())
 }

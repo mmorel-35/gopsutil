@@ -21,7 +21,7 @@ func LabelWithContext(_ context.Context, _ string) (string, error) {
 
 // Using lscfg and a device name, we can get the device information
 // This is a pure go implementation, and should be moved to disk_aix_nocgo.go
-// if a more efficient CGO method is introduced in disk_aix_cgo.go
+// if a more efficient CGO method is introduced in disk_aix_cgo.go.
 func SerialNumberWithContext(ctx context.Context, name string) (string, error) {
 	// This isn't linux, these aren't actual disk devices
 	if strings.HasPrefix(name, "/dev/") {

@@ -23,7 +23,7 @@ import (
 	"github.com/shirou/gopsutil/v4/net"
 )
 
-// copied from sys/sysctl.h
+// copied from sys/sysctl.h.
 const (
 	CTLKern          = 1  // "high kernel": proc, limits
 	KernProc         = 14 // struct: process entries
@@ -330,7 +330,7 @@ func (p *Process) ExeWithContext(_ context.Context) (string, error) {
 	return buf.GoString(), nil
 }
 
-// sys/proc_info.h
+// sys/proc_info.h.
 type vnodePathInfo struct {
 	_       [152]byte
 	vipPath [common.MAXPATHLEN]byte
@@ -417,7 +417,7 @@ func (p *Process) cmdlineSlice() ([]string, error) {
 	return argSlice, err
 }
 
-// cmdNameWithContext returns the command name (including spaces) without any arguments
+// cmdNameWithContext returns the command name (including spaces) without any arguments.
 func (p *Process) cmdNameWithContext(_ context.Context) (string, error) {
 	r, err := p.cmdlineSlice()
 	if err != nil {

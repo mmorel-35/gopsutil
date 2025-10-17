@@ -29,7 +29,7 @@ func ProtoCountersWithContext(_ context.Context, _ []string) ([]ProtoCountersSta
 	return nil, common.ErrNotImplementedError
 }
 
-// Deprecated: use process.PidsWithContext instead
+// Deprecated: use process.PidsWithContext instead.
 func PidsWithContext(_ context.Context) ([]int32, error) {
 	return nil, common.ErrNotImplementedError
 }

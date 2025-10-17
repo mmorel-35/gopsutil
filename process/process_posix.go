@@ -21,7 +21,7 @@ import (
 
 type Signal = syscall.Signal
 
-// POSIX
+// POSIX.
 func getTerminalMap() (map[uint64]string, error) {
 	ret := make(map[uint64]string)
 	var termfiles []string
@@ -109,7 +109,7 @@ func PidExistsWithContext(ctx context.Context, pid int32) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	defer proc.Release()
+	defer func() { _ = proc.Release() }()
 
 	if isMount(common.HostProcWithContext(ctx)) { // if /<HOST_PROC>/proc exists and is mounted, check if /<HOST_PROC>/proc/<PID> folder exists
 		_, err := os.Stat(common.HostProcWithContext(ctx, strconv.Itoa(int(pid))))
@@ -146,7 +146,7 @@ func (p *Process) SendSignalWithContext(_ context.Context, sig syscall.Signal) e
 	if err != nil {
 		return err
 	}
-	defer process.Release()
+	defer func() { _ = process.Release() }()
 
 	err = process.Signal(sig)
 	if err != nil {

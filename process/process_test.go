@@ -303,7 +303,7 @@ func TestLong_Name_With_Spaces(t *testing.T) {
 	require.NoErrorf(t, err, "getting name error %v", err)
 	basename := filepath.Base(tmpfile.Name() + ".exe")
 	require.Equalf(t, basename, n, "%s != %s", basename, n)
-	cmd.Process.Kill()
+	_ = cmd.Process.Kill()
 }
 
 // #nosec G204
@@ -343,7 +343,7 @@ func TestLong_Name(t *testing.T) {
 	require.NoErrorf(t, err, "getting name error %v", err)
 	basename := filepath.Base(tmpfile.Name() + ".exe")
 	require.Equalf(t, basename, n, "%s != %s", basename, n)
-	cmd.Process.Kill()
+	_ = cmd.Process.Kill()
 }
 
 func TestName_Against_Python(t *testing.T) {
@@ -375,8 +375,8 @@ func TestName_Against_Python(t *testing.T) {
 	cmd := exec.CommandContext(ctx, tmpfilepath)
 	outPipe, _ := cmd.StdoutPipe()
 	scanner := bufio.NewScanner(outPipe)
-	cmd.Start()
-	defer cmd.Process.Kill()
+	_ = cmd.Start()
+	defer func() { _ = cmd.Process.Kill() }()
 	scanner.Scan()
 	pyName := scanner.Text() // first line printed by py3 script, its name
 	t.Logf("pyName %s", pyName)
@@ -425,7 +425,7 @@ func TestCpuPercentLoop(t *testing.T) {
 	p := testGetProcess()
 	numcpu := runtime.NumCPU()
 
-	for i := 0; i < 2; i++ {
+	for range 2 {
 		duration := time.Duration(100) * time.Microsecond
 		percent, err := p.Percent(duration)
 		if errors.Is(err, common.ErrNotImplementedError) {
@@ -662,7 +662,7 @@ func TestKill(t *testing.T) {
 		t.Skip("not implemented")
 	}
 	require.NoError(t, err)
-	cmd.Wait()
+	_ = cmd.Wait()
 }
 
 func TestIsRunning(t *testing.T) {
@@ -673,7 +673,7 @@ func TestIsRunning(t *testing.T) {
 	} else {
 		cmd = exec.CommandContext(ctx, "sleep", "1")
 	}
-	cmd.Start()
+	_ = cmd.Start()
 	p, err := NewProcess(int32(cmd.Process.Pid))
 	if errors.Is(err, common.ErrNotImplementedError) {
 		t.Skip("not implemented")
@@ -685,7 +685,7 @@ func TestIsRunning(t *testing.T) {
 	}
 	require.NoErrorf(t, err, "IsRunning error: %v", err)
 	require.Truef(t, running, "process should be found running")
-	cmd.Wait()
+	_ = cmd.Wait()
 	running, err = p.IsRunning()
 	if errors.Is(err, common.ErrNotImplementedError) {
 		t.Skip("not implemented")
@@ -719,7 +719,7 @@ func TestEnviron(t *testing.T) {
 	cmd.Env = []string{"testkey=envvalue"}
 
 	require.NoError(t, cmd.Start())
-	defer cmd.Process.Kill()
+	defer func() { _ = cmd.Process.Kill() }()
 	time.Sleep(100 * time.Millisecond)
 	p, err := NewProcess(int32(cmd.Process.Pid))
 	if errors.Is(err, common.ErrNotImplementedError) {
@@ -780,27 +780,27 @@ func TestConcurrent(t *testing.T) {
 
 func BenchmarkNewProcess(b *testing.B) {
 	checkPid := os.Getpid()
-	for i := 0; i < b.N; i++ {
-		NewProcess(int32(checkPid))
+	for range b.N {
+		_, _ = NewProcess(int32(checkPid))
 	}
 }
 
 func BenchmarkProcessName(b *testing.B) {
 	p := testGetProcess()
-	for i := 0; i < b.N; i++ {
-		p.Name()
+	for range b.N {
+		_, _ = p.Name()
 	}
 }
 
 func BenchmarkProcessPpid(b *testing.B) {
 	p := testGetProcess()
-	for i := 0; i < b.N; i++ {
-		p.Ppid()
+	for range b.N {
+		_, _ = p.Ppid()
 	}
 }
 
 func BenchmarkProcesses(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		ps, err := Processes()
 		require.NoError(b, err)
 		require.NotEmpty(b, ps)
