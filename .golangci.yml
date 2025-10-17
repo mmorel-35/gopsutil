@@ -3,12 +3,17 @@ formatters:
   enable:
     - gci
     - gofumpt
+    - goimports
   settings:
     gci:
       sections:
         - standard
         - default
         - prefix(github.com/shirou)
+    goimports:
+      # Put imports beginning with prefix after 3rd-party packages.
+      # It's a comma-separated list of prefixes.
+      local-prefixes: github.com/shirou/gopsutil
 issues:
   max-same-issues: 0
 linters:
@@ -25,7 +30,6 @@ linters:
     - gochecksumtype
     - gocritic
     - godot
-    - goimports
     - gomodguard
     - gosec
     - govet
@@ -43,7 +47,6 @@ linters:
     - predeclared
     - revive
     - staticcheck
-    - stylecheck
     - testifylint
     - thelper
     - unconvert
@@ -168,14 +171,6 @@ linters:
         # Exclude sentence fragments.
         - "^\\+build"
       capital: false
-    goimports:
-      # Put imports beginning with prefix after 3rd-party packages.
-      # It's a comma-separated list of prefixes.
-      local-prefixes: github.com/shirou/gopsutil
-    stylecheck:
-      checks:
-        - all
-        - -ST1003  # MixedCaps issues (covered by revive)
     unconvert:
       # Remove unnecessary type conversions
       fast-math: false

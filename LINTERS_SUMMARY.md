@@ -2,14 +2,14 @@
 
 ## Quick Overview
 
-This PR adds **15 recommended linters** to the golangci-lint configuration, selected specifically for the gopsutil project based on expert analysis.
+This PR adds **13 recommended linters** to the golangci-lint configuration, selected specifically for the gopsutil project based on expert analysis. It also moves `goimports` to the formatters section where it belongs in golangci-lint v2.
 
 ## What Changed
 
 **Before:** 23 enabled linters (2 were disabled: errcheck, unused)  
-**After:** 38 enabled linters (+15 new)
+**After:** 36 enabled linters (+13 new)
 
-Note: This also re-enables 2 previously disabled linters (errcheck and unused) which are counted among the 15 new additions.
+Note: This also re-enables 2 previously disabled linters (errcheck and unused) which are counted among the 13 new additions.
 
 ### New Linters Added
 
@@ -19,8 +19,13 @@ Note: This also re-enables 2 previously disabled linters (errcheck and unused) w
 | **Code Quality** | unused, unconvert, makezero | Yes |
 | **Modern Go (1.22+)** | intrange, copyloopvar, gochecksumtype | Yes |
 | **Resource Management** | bodyclose | No |
-| **Style & Docs** | stylecheck, godot, goimports | Yes |
+| **Style & Docs** | godot | Yes |
 | **Best Practices** | mirror, usestdlibvars | Yes |
+
+### Configuration Fixes for golangci-lint v2
+
+- ✅ **goimports** - Moved from linters to formatters section (formatters and linters are separate in v2)
+- ✅ **stylecheck** - Removed (functionality merged into staticcheck in v2, ST checks already available)
 
 ## Key Highlights
 
@@ -38,7 +43,10 @@ Note: This also re-enables 2 previously disabled linters (errcheck and unused) w
 Many linters support `golangci-lint run --fix`:
 - mirror, intrange, copyloopvar
 - unconvert, usestdlibvars
-- goimports, stylecheck
+- godot, makezero
+
+And formatters with `golangci-lint run --fix`:
+- goimports, gci, gofumpt
 
 ## Why These Linters?
 
@@ -55,7 +63,7 @@ Many linters support `golangci-lint run --fix`:
 3. **Public API / Library**
    - `errname` enforces error naming conventions
    - `godot` improves documentation quality
-   - `stylecheck` maintains professional code style
+   - ST checks in `staticcheck` maintain professional code style
 
 4. **Modern Go support (1.24)**
    - Project can benefit from Go 1.22+ features
@@ -68,8 +76,8 @@ All new linters are carefully configured:
 - **errcheck**: Excludes common patterns like `defer file.Close()` where errors are typically ignored
 - **unconvert**: Uses `safe: true` mode to avoid breaking platform-specific type conversions
 - **godot**: Only checks declarations (not all comments) to reduce noise
-- **goimports**: Groups gopsutil internal imports separately
-- **stylecheck**: Disables checks covered by existing revive rules
+- **goimports**: Configured as a formatter (not a linter) with grouping for gopsutil internal imports
+- **staticcheck**: ST1003 check disabled (covered by existing revive rules)
 
 ## Next Steps
 

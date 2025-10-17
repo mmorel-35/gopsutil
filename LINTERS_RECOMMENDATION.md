@@ -73,22 +73,11 @@ The following linters have been added to enhance code quality, maintainability, 
     - Configured to check only declarations
     - Improves documentation consistency
 
-13. **stylecheck** - Style consistency
-    - Modern replacement for golint
-    - Provides style checks beyond what revive covers
-    - Configured to skip ST1003 (handled by revive)
-    - Auto-fixable
-
-14. **goimports** - Import management
-    - Ensures imports are properly formatted and grouped
-    - Configured to group local imports (github.com/shirou/gopsutil) separately
-    - Auto-fixable
-    - Complements the existing gci formatter
-
-15. **unconvert** - Code cleanliness
+13. **unconvert** - Code cleanliness
     - Removes unnecessary type conversions
     - Makes code cleaner and easier to read
     - Auto-fixable
+    - Configured in safe mode for multi-platform compatibility
 
 ## Configuration Considerations
 
@@ -112,22 +101,27 @@ godot:
 - Only checks declaration comments (not all comments)
 - Doesn't enforce capitalization to reduce noise
 
-### goimports Configuration
+### unconvert Configuration
 ```yaml
-goimports:
-  local-prefixes: github.com/shirou/gopsutil
+unconvert:
+  fast-math: false
+  safe: true
 ```
+- Safe mode preserves conversions that may be needed for specific architectures
+- Important for a multi-platform library like gopsutil
+
+### goimports (Formatter Configuration)
+```yaml
+formatters:
+  enable:
+    - goimports
+  settings:
+    goimports:
+      local-prefixes: github.com/shirou/gopsutil
+```
+- Note: In golangci-lint v2, goimports is a formatter, not a linter
 - Groups gopsutil internal imports separately
 - Maintains consistency with existing gci formatter
-
-### stylecheck Configuration
-```yaml
-stylecheck:
-  checks:
-    - all
-    - -ST1003  # Covered by revive
-```
-- Disables ST1003 since it's handled by revive's var-naming rule
 
 ## Benefits for gopsutil
 
@@ -150,12 +144,18 @@ Many of the new linters support automatic fixes:
 - errorlint (already enabled)
 - fatcontext (already enabled)
 - gocritic (already enabled)
-- goimports
+- godot
 - intrange
+- makezero
 - mirror
 - perfsprint (already enabled)
 - unconvert
 - usestdlibvars
+
+And formatters:
+- goimports
+- gci (already enabled)
+- gofumpt (already enabled)
 
 This means many issues can be automatically corrected by running:
 ```bash
