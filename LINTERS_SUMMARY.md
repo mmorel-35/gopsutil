@@ -6,8 +6,10 @@ This PR adds **15 recommended linters** to the golangci-lint configuration, sele
 
 ## What Changed
 
-**Before:** 22 enabled linters  
-**After:** 37 enabled linters (+15 new)
+**Before:** 23 enabled linters (2 were disabled: errcheck, unused)  
+**After:** 38 enabled linters (+15 new)
+
+Note: This also re-enables 2 previously disabled linters (errcheck and unused) which are counted among the 15 new additions.
 
 ### New Linters Added
 
