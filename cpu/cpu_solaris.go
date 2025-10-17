@@ -214,7 +214,7 @@ func parseProcessorInfo(cmdOutput string) ([]InfoStat, error) {
 				return nil, fmt.Errorf("cannot parse value %q for core count as 32-bit integer: %w", physicalCPU[1], err)
 			}
 
-			for i := range numCores {
+			for i := 0; i < int(numCores); i++ {
 				result = append(result, InfoStat{
 					CPU:        infoStatCount,
 					PhysicalID: strconv.Itoa(physicalIndex),
@@ -240,7 +240,7 @@ func parseProcessorInfo(cmdOutput string) ([]InfoStat, error) {
 				return nil, fmt.Errorf("cannot parse value %q for hyperthread count as 32-bit integer: %w", physicalCPU[4], err)
 			}
 
-			for i := range numCores {
+			for i := 0; i < int(numCores); i++ {
 				result = append(result, InfoStat{
 					CPU:        infoStatCount,
 					PhysicalID: strconv.Itoa(physicalIndex),

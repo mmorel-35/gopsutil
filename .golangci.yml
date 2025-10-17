@@ -225,14 +225,14 @@ linters:
         path: 'process/process(_\w+)?\.go'
       - linters:
           - unused
-        path: '(host|cpu|disk|load|mem|net|sensors|docker)/.*_(windows|aix|bsd|posix|darwin|freebsd).*\.go'
+        path: '(host|cpu|disk|load|mem|net|sensors|docker)/.*_(windows|aix|bsd|posix|darwin|freebsd|386|solaris).*\.go'
       - linters:
           - unused
         path: 'internal/common/common(_windows)?\.go'
       - linters:
           - unused
         path: '(host|cpu|docker)/\w+\.go'
-        text: '(func|var|const).* is unused'
+        text: '(func|var|const|type).* is unused'
       
       # Exclude errcheck for cleanup operations and Windows syscalls
       - text: '(\.Call|unsafe\.Sizeof|token\.Close|windows\.(LocalFree|CloseHandle|RegCloseKey)|key\.(Close|SetDWordValue)|smc\.Close|purego\.Dlclose|m\.close).*is not checked'
