@@ -37,7 +37,10 @@ func fixCount(n int, err error) (int, error) {
 
 // Readlink behaves like os.Readlink but caches the buffer passed to syscall.Readlink.
 func Readlink(name string) (string, error) {
-	b := bufferPool.Get().(*[]byte)
+	b, ok := bufferPool.Get().(*[]byte)
+	if !ok {
+		return "", &os.PathError{Op: "readlink", Path: name, Err: errors.New("buffer pool returned wrong type")}
+	}
 
 	n, err := ignoringEINTR2(func() (int, error) {
 		return fixCount(syscall.Readlink(name, *b))

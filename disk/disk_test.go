@@ -70,7 +70,7 @@ func TestIOCounters_concurrency_on_darwin_cgo(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			IOCounters()
+			_, _ = IOCounters()
 		}()
 	}
 	wg.Wait()

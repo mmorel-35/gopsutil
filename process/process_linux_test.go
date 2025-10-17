@@ -185,7 +185,7 @@ func Benchmark_fillFromCommWithContext(b *testing.B) {
 	pid := 1060
 	p, _ := NewProcess(int32(pid))
 	for range b.N {
-		p.fillFromCommWithContext(context.Background())
+		_ = p.fillFromCommWithContext(context.Background())
 	}
 }
 
@@ -194,7 +194,7 @@ func Benchmark_fillFromStatusWithContext(b *testing.B) {
 	pid := 1060
 	p, _ := NewProcess(int32(pid))
 	for range b.N {
-		p.fillFromStatus()
+		_ = p.fillFromStatus()
 	}
 }
 

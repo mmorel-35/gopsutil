@@ -224,7 +224,7 @@ func NewProcessWithContext(ctx context.Context, pid int32) (*Process, error) {
 	if !exists {
 		return p, ErrorProcessNotRunning
 	}
-	p.CreateTimeWithContext(ctx)
+	_, _ = p.CreateTimeWithContext(ctx)
 	return p, nil
 }
 

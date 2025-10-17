@@ -168,13 +168,13 @@ func TestPlatformInformation(t *testing.T) {
 func BenchmarkBootTimeWithCache(b *testing.B) {
 	EnableBootTimeCache(true)
 	for range b.N {
-		BootTime()
+		_, _ = BootTime()
 	}
 }
 
 func BenchmarkBootTimeWithoutCache(b *testing.B) {
 	EnableBootTimeCache(false)
 	for range b.N {
-		BootTime()
+		_, _ = BootTime()
 	}
 }
