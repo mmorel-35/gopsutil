@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-// ExTemperature represents Linux dependent temperature sensor data
+// ExTemperature represents Linux dependent temperature sensor data.
 type ExTemperature struct {
 	SensorKey string  `json:"key"`
 	Min       float64 `json:"min"`     // Temperature min value.

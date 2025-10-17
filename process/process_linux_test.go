@@ -73,7 +73,7 @@ func TestFillFromfdWithContext(t *testing.T) {
 func TestSplitProcStat(t *testing.T) {
 	expectedFieldsNum := 53
 	statLineContent := make([]string, expectedFieldsNum-1)
-	for i := 0; i < expectedFieldsNum-1; i++ {
+	for i := range expectedFieldsNum - 1 {
 		statLineContent[i] = strconv.Itoa(i + 1)
 	}
 
@@ -184,7 +184,7 @@ func Benchmark_fillFromCommWithContext(b *testing.B) {
 	b.Setenv("HOST_PROC", "testdata/linux")
 	pid := 1060
 	p, _ := NewProcess(int32(pid))
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		p.fillFromCommWithContext(context.Background())
 	}
 }
@@ -193,7 +193,7 @@ func Benchmark_fillFromStatusWithContext(b *testing.B) {
 	b.Setenv("HOST_PROC", "testdata/linux")
 	pid := 1060
 	p, _ := NewProcess(int32(pid))
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		p.fillFromStatus()
 	}
 }

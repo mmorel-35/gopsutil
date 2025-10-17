@@ -66,7 +66,7 @@ func init() {
 	lastCPUPercent.Unlock()
 }
 
-// Counts returns the number of physical or logical cores in the system
+// Counts returns the number of physical or logical cores in the system.
 func Counts(logical bool) (int, error) {
 	return CountsWithContext(context.Background(), logical)
 }

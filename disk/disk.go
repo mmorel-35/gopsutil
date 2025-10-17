@@ -85,7 +85,7 @@ func IOCounters(names ...string) (map[string]IOCountersStat, error) {
 }
 
 // SerialNumber returns Serial Number of given device or empty string
-// on error. Name of device is expected, eg. /dev/sda
+// on error. Name of device is expected, eg. /dev/sda.
 func SerialNumber(name string) (string, error) {
 	return SerialNumberWithContext(context.Background(), name)
 }

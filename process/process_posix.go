@@ -21,7 +21,7 @@ import (
 
 type Signal = syscall.Signal
 
-// POSIX
+// POSIX.
 func getTerminalMap() (map[uint64]string, error) {
 	ret := make(map[uint64]string)
 	var termfiles []string

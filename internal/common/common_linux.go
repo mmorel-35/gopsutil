@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// cachedBootTime must be accessed via atomic.Load/StoreUint64
+// cachedBootTime must be accessed via atomic.Load/StoreUint64.
 var cachedBootTime uint64
 
 func NumProcs() (uint64, error) {
@@ -143,7 +143,7 @@ func Virtualization() (string, string, error) {
 	return VirtualizationWithContext(context.Background())
 }
 
-// required variables for concurrency safe virtualization caching
+// required variables for concurrency safe virtualization caching.
 var (
 	cachedVirtMap   map[string]string
 	cachedVirtMutex sync.RWMutex
@@ -332,7 +332,7 @@ func GetOSReleaseWithContext(ctx context.Context) (platform, version string, err
 	return platform, version, nil
 }
 
-// Remove quotes of the source string
+// Remove quotes of the source string.
 func trimQuotes(s string) string {
 	if len(s) >= 2 {
 		if s[0] == '"' && s[len(s)-1] == '"' {

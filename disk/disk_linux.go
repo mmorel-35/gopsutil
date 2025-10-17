@@ -24,7 +24,7 @@ const (
 )
 
 const (
-	// man statfs
+	// man statfs.
 	ADFS_SUPER_MAGIC      = 0xadf5
 	AFFS_SUPER_MAGIC      = 0xADFF
 	BDEVFS_MAGIC          = 0x62646576
@@ -132,7 +132,7 @@ const (
 	ZFS_SUPER_MAGIC             = 0x2FC12FC1
 )
 
-// coreutils/src/stat.c
+// coreutils/src/stat.c.
 var fsTypeMap = map[int64]string{
 	ADFS_SUPER_MAGIC:          "adfs",          /* 0xADF5 local */
 	AFFS_SUPER_MAGIC:          "affs",          /* 0xADFF local */
@@ -237,7 +237,7 @@ var fsTypeMap = map[int64]string{
 }
 
 // readMountFile reads mountinfo or mounts file under the specified root path
-// (eg, /proc/1, /proc/self, etc)
+// (eg, /proc/1, /proc/self, etc).
 func readMountFile(root string) (lines []string, useMounts bool, filename string, err error) {
 	filename = path.Join(root, "mountinfo")
 	lines, err = common.ReadLines(filename)
@@ -383,7 +383,7 @@ func parseFieldsOnMountinfo(ctx context.Context, lines []string, all bool, fs []
 	return ret, nil
 }
 
-// getFileSystems returns supported filesystems from /proc/filesystems
+// getFileSystems returns supported filesystems from /proc/filesystems.
 func getFileSystems(ctx context.Context) ([]string, error) {
 	filename := common.HostProcWithContext(ctx, "filesystems")
 	lines, err := common.ReadLines(filename)
