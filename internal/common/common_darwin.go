@@ -57,7 +57,7 @@ type Library struct {
 	close func()
 }
 
-// library paths
+// library paths.
 const (
 	IOKit          = "/System/Library/Frameworks/IOKit.framework/IOKit"
 	CoreFoundation = "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
@@ -95,7 +95,7 @@ func (lib *Library) Close() {
 	lib.close()
 }
 
-// status codes
+// status codes.
 const (
 	KERN_SUCCESS = 0
 )

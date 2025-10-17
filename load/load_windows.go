@@ -62,7 +62,7 @@ func loadAvgGoroutine(ctx context.Context) {
 	}
 }
 
-// Avg for Windows may return 0 values for the first few 5 second intervals
+// Avg for Windows may return 0 values for the first few 5 second intervals.
 func Avg() (*AvgStat, error) {
 	return AvgWithContext(context.Background())
 }

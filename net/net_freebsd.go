@@ -11,7 +11,7 @@ import (
 	"github.com/shirou/gopsutil/v4/internal/common"
 )
 
-// Deprecated: use process.PidsWithContext instead
+// Deprecated: use process.PidsWithContext instead.
 func PidsWithContext(_ context.Context) ([]int32, error) {
 	return nil, common.ErrNotImplementedError
 }

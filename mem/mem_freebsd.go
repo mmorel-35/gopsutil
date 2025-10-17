@@ -80,18 +80,18 @@ func VirtualMemoryWithContext(_ context.Context) (*VirtualMemoryStat, error) {
 	return ret, nil
 }
 
-// Return swapinfo
+// Return swapinfo.
 func SwapMemory() (*SwapMemoryStat, error) {
 	return SwapMemoryWithContext(context.Background())
 }
 
-// Constants from vm/vm_param.h
+// Constants from vm/vm_param.h.
 const (
 	XSWDEV_VERSION11 = 1
 	XSWDEV_VERSION   = 2
 )
 
-// Types from vm/vm_param.h
+// Types from vm/vm_param.h.
 type xswdev struct {
 	Version uint32 // Version is the version
 	Dev     uint64 // Dev is the device identifier
@@ -101,7 +101,7 @@ type xswdev struct {
 }
 
 // xswdev11 is a compatibility for under FreeBSD 11
-// sys/vm/swap_pager.c
+// sys/vm/swap_pager.c.
 type xswdev11 struct {
 	Version uint32 // Version is the version
 	Dev     uint32 // Dev is the device identifier
@@ -131,7 +131,7 @@ func SwapMemoryWithContext(_ context.Context) (*SwapMemoryStat, error) {
 
 	var buf []byte
 	s := &SwapMemoryStat{}
-	for n := 0; n < c; n++ {
+	for n := range c {
 		buf, err = unix.SysctlRaw("vm.swap_info", n)
 		if err != nil {
 			return nil, err

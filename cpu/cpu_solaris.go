@@ -24,7 +24,7 @@ func init() {
 	}
 }
 
-// sum all values in a float64 map with float64 keys
+// sum all values in a float64 map with float64 keys.
 func msum(x map[float64]float64) float64 {
 	total := 0.0
 	for _, y := range x {
@@ -214,7 +214,7 @@ func parseProcessorInfo(cmdOutput string) ([]InfoStat, error) {
 				return nil, fmt.Errorf("cannot parse value %q for core count as 32-bit integer: %w", physicalCPU[1], err)
 			}
 
-			for i := 0; i < int(numCores); i++ {
+			for i := range numCores {
 				result = append(result, InfoStat{
 					CPU:        infoStatCount,
 					PhysicalID: strconv.Itoa(physicalIndex),
@@ -240,7 +240,7 @@ func parseProcessorInfo(cmdOutput string) ([]InfoStat, error) {
 				return nil, fmt.Errorf("cannot parse value %q for hyperthread count as 32-bit integer: %w", physicalCPU[4], err)
 			}
 
-			for i := 0; i < int(numCores); i++ {
+			for i := range numCores {
 				result = append(result, InfoStat{
 					CPU:        infoStatCount,
 					PhysicalID: strconv.Itoa(physicalIndex),

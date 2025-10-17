@@ -300,7 +300,7 @@ func split0(s16 []uint16, end int) []string {
 
 	from, ss := 0, make([]string, 0)
 
-	for to := 0; to < end; to++ {
+	for to := range end {
 		if s16[to] == 0 {
 			if from < to && s16[from] != 0 {
 				ss = append(ss, string(utf16.Decode(s16[from:to])))

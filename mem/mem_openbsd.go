@@ -69,7 +69,7 @@ func VirtualMemoryWithContext(_ context.Context) (*VirtualMemoryStat, error) {
 	return ret, nil
 }
 
-// Return swapctl summary info
+// Return swapctl summary info.
 func SwapMemory() (*SwapMemoryStat, error) {
 	return SwapMemoryWithContext(context.Background())
 }

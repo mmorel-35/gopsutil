@@ -19,7 +19,7 @@ import (
 	"github.com/shirou/gopsutil/v4/process"
 )
 
-// from utmpx.h
+// from utmpx.h.
 const user_PROCESS = 7 //nolint:revive //FIXME
 
 func HostIDWithContext(ctx context.Context) (string, error) {
@@ -70,7 +70,7 @@ func UsersWithContext(_ context.Context) ([]UserStat, error) {
 	entrySize := int(unsafe.Sizeof(Utmpx{}))
 	count := len(buf) / entrySize
 
-	for i := 0; i < count; i++ {
+	for i := range count {
 		b := buf[i*entrySize : i*entrySize+entrySize]
 
 		var u Utmpx

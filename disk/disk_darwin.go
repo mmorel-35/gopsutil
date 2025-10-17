@@ -221,7 +221,7 @@ func IOCountersWithContext(_ context.Context, names ...string) (map[string]IOCou
 	}
 
 	ret := make(map[string]IOCountersStat, 0)
-	for i := 0; i < len(stats); i++ {
+	for i := range stats {
 		if len(names) > 0 && !common.StringsHas(names, stats[i].Name) {
 			continue
 		}

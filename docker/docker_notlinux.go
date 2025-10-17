@@ -32,7 +32,7 @@ func GetDockerIDListWithContext(_ context.Context) ([]string, error) {
 // CgroupCPU returns specified cgroup id CPU status.
 // containerID is same as docker id if you use docker.
 // If you use container via systemd.slice, you could use
-// containerID = docker-<container id>.scope and base=/sys/fs/cgroup/cpuacct/system.slice/
+// containerID = docker-<container id>.scope and base=/sys/fs/cgroup/cpuacct/system.slice/.
 func CgroupCPU(containerID, base string) (*CgroupCPUStat, error) {
 	return CgroupCPUWithContext(context.Background(), containerID, base)
 }

@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	// sys/sysctl.h
+	// sys/sysctl.h.
 	ctlKern    = 1  // "high kernel": proc, limits
 	ctlHw      = 6  // CTL_HW
 	kernCpTime = 51 // KERN_CPTIME
@@ -83,7 +83,7 @@ func TimesWithContext(_ context.Context, percpu bool) ([]TimesStat, error) {
 	return ret, nil
 }
 
-// Returns only one (minimal) CPUInfoStat on NetBSD
+// Returns only one (minimal) CPUInfoStat on NetBSD.
 func Info() ([]InfoStat, error) {
 	return InfoWithContext(context.Background())
 }

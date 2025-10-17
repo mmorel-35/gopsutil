@@ -66,7 +66,7 @@ func TimesWithContext(_ context.Context, percpu bool) ([]TimesStat, error) {
 
 		ncpus := len(buf) / cpuTimesSize
 		ret := make([]TimesStat, 0, ncpus)
-		for i := 0; i < ncpus; i++ {
+		for i := range ncpus {
 			times := (*cpuTimes)(unsafe.Pointer(&buf[i*cpuTimesSize]))
 			if *times == emptyTimes {
 				// CPU not present
@@ -117,7 +117,7 @@ func InfoWithContext(_ context.Context) ([]InfoStat, error) {
 	}
 
 	ret := make([]InfoStat, num)
-	for i := 0; i < num; i++ {
+	for i := range num {
 		ret[i] = c
 	}
 

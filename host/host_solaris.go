@@ -58,7 +58,7 @@ func HostIDWithContext(ctx context.Context) (string, error) {
 	return "", nil
 }
 
-// Count number of processes based on the number of entries in /proc
+// Count number of processes based on the number of entries in /proc.
 func numProcs(_ context.Context) (uint64, error) {
 	dirs, err := os.ReadDir("/proc")
 	if err != nil {
@@ -99,7 +99,7 @@ func VirtualizationWithContext(_ context.Context) (string, string, error) {
 	return "", "", common.ErrNotImplementedError
 }
 
-// Find distribution name from /etc/release
+// Find distribution name from /etc/release.
 func parseReleaseFile() (string, error) {
 	b, err := os.ReadFile("/etc/release")
 	if err != nil {
@@ -130,7 +130,7 @@ func parseReleaseFile() (string, error) {
 	return platform, nil
 }
 
-// parseUnameOutput returns platformFamily, kernelVersion and platformVersion
+// parseUnameOutput returns platformFamily, kernelVersion and platformVersion.
 func parseUnameOutput(ctx context.Context) (string, string, string, error) {
 	out, err := invoke.CommandWithContext(ctx, "uname", "-srv")
 	if err != nil {
