@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"structs"
 	"syscall"
 	"time"
 	"unicode/utf16"
@@ -51,6 +52,7 @@ var (
 const processQueryInformation = windows.PROCESS_QUERY_LIMITED_INFORMATION
 
 type systemProcessorInformation struct {
+	_ structs.HostLayout
 	ProcessorArchitecture uint16
 	ProcessorLevel        uint16
 	ProcessorRevision     uint16
@@ -59,6 +61,7 @@ type systemProcessorInformation struct {
 }
 
 type systemInfo struct {
+	_ structs.HostLayout
 	wProcessorArchitecture      uint16
 	wReserved                   uint16
 	dwpageSize                  uint32
@@ -80,6 +83,7 @@ type MemoryMapsStat struct{}
 // ioCounters is an equivalent representation of IO_COUNTERS in the Windows API.
 // https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-io_counters
 type ioCounters struct {
+	_ structs.HostLayout
 	ReadOperationCount  uint64
 	WriteOperationCount uint64
 	OtherOperationCount uint64
@@ -89,6 +93,7 @@ type ioCounters struct {
 }
 
 type processBasicInformation32 struct {
+	_ structs.HostLayout
 	Reserved1       uint32
 	PebBaseAddress  uint32
 	Reserved2       uint32
@@ -98,6 +103,7 @@ type processBasicInformation32 struct {
 }
 
 type processBasicInformation64 struct {
+	_ structs.HostLayout
 	Reserved1       uint64
 	PebBaseAddress  uint64
 	Reserved2       uint64
@@ -107,6 +113,7 @@ type processBasicInformation64 struct {
 }
 
 type processEnvironmentBlock32 struct {
+	_ structs.HostLayout
 	Reserved1         [2]uint8
 	BeingDebugged     uint8
 	Reserved2         uint8
@@ -117,10 +124,11 @@ type processEnvironmentBlock32 struct {
 }
 
 type processEnvironmentBlock64 struct {
+	_ structs.HostLayout
 	Reserved1         [2]uint8
 	BeingDebugged     uint8
 	Reserved2         uint8
-	_                 [4]uint8 // padding, since we are 64 bit, the next pointer is 64 bit aligned (when compiling for 32 bit, this is not the case without manual padding)
+	__                [4]uint8 // padding, since we are 64 bit, the next pointer is 64 bit aligned (when compiling for 32 bit, this is not the case without manual padding)
 	Reserved3         [2]uint64
 	Ldr               uint64
 	ProcessParameters uint64
@@ -128,6 +136,7 @@ type processEnvironmentBlock64 struct {
 }
 
 type rtlUserProcessParameters32 struct {
+	_ structs.HostLayout
 	Reserved1                      [16]uint8
 	ConsoleHandle                  uint32
 	ConsoleFlags                   uint32
@@ -135,23 +144,24 @@ type rtlUserProcessParameters32 struct {
 	StdOutputHandle                uint32
 	StdErrorHandle                 uint32
 	CurrentDirectoryPathNameLength uint16
-	_                              uint16 // Max Length
+	__                             uint16 // Max Length
 	CurrentDirectoryPathAddress    uint32
 	CurrentDirectoryHandle         uint32
 	DllPathNameLength              uint16
-	_                              uint16 // Max Length
+	___                            uint16 // Max Length
 	DllPathAddress                 uint32
 	ImagePathNameLength            uint16
-	_                              uint16 // Max Length
+	____                           uint16 // Max Length
 	ImagePathAddress               uint32
 	CommandLineLength              uint16
-	_                              uint16 // Max Length
+	_____                          uint16 // Max Length
 	CommandLineAddress             uint32
 	EnvironmentAddress             uint32
 	// More fields which we don't use so far
 }
 
 type rtlUserProcessParameters64 struct {
+	_ structs.HostLayout
 	Reserved1                      [16]uint8
 	ConsoleHandle                  uint64
 	ConsoleFlags                   uint64
@@ -159,39 +169,42 @@ type rtlUserProcessParameters64 struct {
 	StdOutputHandle                uint64
 	StdErrorHandle                 uint64
 	CurrentDirectoryPathNameLength uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	__                             uint16 // Max Length
+	___                            uint32 // Padding
 	CurrentDirectoryPathAddress    uint64
 	CurrentDirectoryHandle         uint64
 	DllPathNameLength              uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	____                           uint16 // Max Length
+	_____                          uint32 // Padding
 	DllPathAddress                 uint64
 	ImagePathNameLength            uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	______                         uint16 // Max Length
+	_______                        uint32 // Padding
 	ImagePathAddress               uint64
 	CommandLineLength              uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	________                       uint16 // Max Length
+	_________                      uint32 // Padding
 	CommandLineAddress             uint64
 	EnvironmentAddress             uint64
 	// More fields which we don't use so far
 }
 
 type winLUID struct {
+	_ structs.HostLayout
 	LowPart  winDWord
 	HighPart winLong
 }
 
 // LUID_AND_ATTRIBUTES
 type winLUIDAndAttributes struct {
+	_ structs.HostLayout
 	Luid       winLUID
 	Attributes winDWord
 }
 
 // TOKEN_PRIVILEGES
 type winTokenPrivileges struct {
+	_ structs.HostLayout
 	PrivilegeCount winDWord
 	Privileges     [1]winLUIDAndAttributes
 }

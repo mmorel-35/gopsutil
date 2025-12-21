@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
+	"structs"
 	"syscall"
 	"unsafe"
 
@@ -255,6 +256,7 @@ func (s NtStatus) IsError() bool {
 }
 
 type SystemExtendedHandleTableEntryInformation struct {
+	_ structs.HostLayout
 	Object                uintptr
 	UniqueProcessId       uintptr
 	HandleValue           uintptr
@@ -266,6 +268,7 @@ type SystemExtendedHandleTableEntryInformation struct {
 }
 
 type SystemExtendedHandleInformation struct {
+	_ structs.HostLayout
 	NumberOfHandles uintptr
 	Reserved        uintptr
 	Handles         [1]SystemExtendedHandleTableEntryInformation

@@ -121,7 +121,7 @@ linters:
         - name: var-declaration
         - name: var-naming
           arguments:
-            - ["ID"] # AllowList
+            - ["ID", "^_+$"] # AllowList - ID and underscore-only names (single _ for HostLayout, multiple for padding)
             - ["VM"] # DenyList
             - - upperCaseConst: true # Extra parameter (upperCaseConst|skipPackageNameChecks)
                 skipPackageNameChecks: true
