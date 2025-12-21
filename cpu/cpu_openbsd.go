@@ -31,7 +31,7 @@ const (
 var ClocksPerSec = float64(128)
 
 type cpuStats struct {
-	_     structs.HostLayout
+	_ structs.HostLayout
 	// cs_time[CPUSTATES]
 	User uint64
 	Nice uint64
