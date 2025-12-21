@@ -128,7 +128,7 @@ type processEnvironmentBlock64 struct {
 	Reserved1         [2]uint8
 	BeingDebugged     uint8
 	Reserved2         uint8
-	_                 [4]uint8 // padding, since we are 64 bit, the next pointer is 64 bit aligned (when compiling for 32 bit, this is not the case without manual padding)
+	__                [4]uint8 // padding, since we are 64 bit, the next pointer is 64 bit aligned (when compiling for 32 bit, this is not the case without manual padding)
 	Reserved3         [2]uint64
 	Ldr               uint64
 	ProcessParameters uint64
@@ -144,17 +144,17 @@ type rtlUserProcessParameters32 struct {
 	StdOutputHandle                uint32
 	StdErrorHandle                 uint32
 	CurrentDirectoryPathNameLength uint16
-	_                              uint16 // Max Length
+	__                             uint16 // Max Length
 	CurrentDirectoryPathAddress    uint32
 	CurrentDirectoryHandle         uint32
 	DllPathNameLength              uint16
-	_                              uint16 // Max Length
+	___                            uint16 // Max Length
 	DllPathAddress                 uint32
 	ImagePathNameLength            uint16
-	_                              uint16 // Max Length
+	____                           uint16 // Max Length
 	ImagePathAddress               uint32
 	CommandLineLength              uint16
-	_                              uint16 // Max Length
+	_____                          uint16 // Max Length
 	CommandLineAddress             uint32
 	EnvironmentAddress             uint32
 	// More fields which we don't use so far
@@ -169,21 +169,21 @@ type rtlUserProcessParameters64 struct {
 	StdOutputHandle                uint64
 	StdErrorHandle                 uint64
 	CurrentDirectoryPathNameLength uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	__                             uint16 // Max Length
+	___                            uint32 // Padding
 	CurrentDirectoryPathAddress    uint64
 	CurrentDirectoryHandle         uint64
 	DllPathNameLength              uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	____                           uint16 // Max Length
+	_____                          uint32 // Padding
 	DllPathAddress                 uint64
 	ImagePathNameLength            uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	______                         uint16 // Max Length
+	_______                        uint32 // Padding
 	ImagePathAddress               uint64
 	CommandLineLength              uint16
-	_                              uint16 // Max Length
-	_                              uint32 // Padding
+	________                       uint16 // Max Length
+	_________                      uint32 // Padding
 	CommandLineAddress             uint64
 	EnvironmentAddress             uint64
 	// More fields which we don't use so far
