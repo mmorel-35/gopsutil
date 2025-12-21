@@ -4,7 +4,7 @@ package cpu
 import "structs"
 
 type cpuTimes struct {
-	_    structs.HostLayout
+	_ structs.HostLayout
 	User uint64
 	Nice uint64
 	Sys  uint64

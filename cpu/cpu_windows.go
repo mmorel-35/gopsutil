@@ -54,7 +54,7 @@ type win32_SystemProcessorPerformanceInformation struct { //nolint:revive //FIXM
 
 // https://learn.microsoft.com/en-us/windows/win32/power/processor-power-information-str
 type processorPowerInformation struct {
-	_                structs.HostLayout
+	_ structs.HostLayout
 	number           uint32 // http://download.microsoft.com/download/a/d/f/adf1347d-08dc-41a4-9084-623b1194d4b2/MoreThan64proc.docx
 	maxMhz           uint32
 	currentMhz       uint32
@@ -303,7 +303,7 @@ func perfInfo() ([]win32_SystemProcessorPerformanceInformation, error) {
 // https://msdn.microsoft.com/en-us/library/ms724958%28VS.85%29.aspx?f=255&MSPPError=-2147217396
 // https://github.com/elastic/go-windows/blob/bb1581babc04d5cb29a2bfa7a9ac6781c730c8dd/kernel32.go#L43
 type systemInfo struct {
-	_                           structs.HostLayout
+	_ structs.HostLayout
 	wProcessorArchitecture      uint16
 	wReserved                   uint16
 	dwPageSize                  uint32
@@ -318,7 +318,7 @@ type systemInfo struct {
 }
 
 type groupAffinity struct {
-	_        structs.HostLayout
+	_ structs.HostLayout
 	mask     uintptr // https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/interrupt-affinity-and-priority#about-kaffinity
 	group    uint16
 	reserved [3]uint16
@@ -326,7 +326,7 @@ type groupAffinity struct {
 
 // https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-processor_relationship
 type processorRelationship struct {
-	_              structs.HostLayout
+	_ structs.HostLayout
 	flags          byte
 	efficientClass byte
 	reserved       [20]byte
@@ -336,7 +336,7 @@ type processorRelationship struct {
 
 // https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex
 type systemLogicalProcessorInformationEx struct {
-	_            structs.HostLayout
+	_ structs.HostLayout
 	relationship uint32
 	size         uint32
 	processor    processorRelationship

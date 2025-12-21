@@ -52,7 +52,7 @@ var (
 const processQueryInformation = windows.PROCESS_QUERY_LIMITED_INFORMATION
 
 type systemProcessorInformation struct {
-	_                     structs.HostLayout
+	_ structs.HostLayout
 	ProcessorArchitecture uint16
 	ProcessorLevel        uint16
 	ProcessorRevision     uint16
@@ -61,7 +61,7 @@ type systemProcessorInformation struct {
 }
 
 type systemInfo struct {
-	_                           structs.HostLayout
+	_ structs.HostLayout
 	wProcessorArchitecture      uint16
 	wReserved                   uint16
 	dwpageSize                  uint32
@@ -83,7 +83,7 @@ type MemoryMapsStat struct{}
 // ioCounters is an equivalent representation of IO_COUNTERS in the Windows API.
 // https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-io_counters
 type ioCounters struct {
-	_                   structs.HostLayout
+	_ structs.HostLayout
 	ReadOperationCount  uint64
 	WriteOperationCount uint64
 	OtherOperationCount uint64
@@ -93,7 +93,7 @@ type ioCounters struct {
 }
 
 type processBasicInformation32 struct {
-	_               structs.HostLayout
+	_ structs.HostLayout
 	Reserved1       uint32
 	PebBaseAddress  uint32
 	Reserved2       uint32
@@ -103,7 +103,7 @@ type processBasicInformation32 struct {
 }
 
 type processBasicInformation64 struct {
-	_               structs.HostLayout
+	_ structs.HostLayout
 	Reserved1       uint64
 	PebBaseAddress  uint64
 	Reserved2       uint64
@@ -113,7 +113,7 @@ type processBasicInformation64 struct {
 }
 
 type processEnvironmentBlock32 struct {
-	_                 structs.HostLayout
+	_ structs.HostLayout
 	Reserved1         [2]uint8
 	BeingDebugged     uint8
 	Reserved2         uint8
@@ -124,7 +124,7 @@ type processEnvironmentBlock32 struct {
 }
 
 type processEnvironmentBlock64 struct {
-	_                 structs.HostLayout
+	_ structs.HostLayout
 	Reserved1         [2]uint8
 	BeingDebugged     uint8
 	Reserved2         uint8
@@ -136,7 +136,7 @@ type processEnvironmentBlock64 struct {
 }
 
 type rtlUserProcessParameters32 struct {
-	_                              structs.HostLayout
+	_ structs.HostLayout
 	Reserved1                      [16]uint8
 	ConsoleHandle                  uint32
 	ConsoleFlags                   uint32
@@ -161,7 +161,7 @@ type rtlUserProcessParameters32 struct {
 }
 
 type rtlUserProcessParameters64 struct {
-	_                              structs.HostLayout
+	_ structs.HostLayout
 	Reserved1                      [16]uint8
 	ConsoleHandle                  uint64
 	ConsoleFlags                   uint64
@@ -190,21 +190,21 @@ type rtlUserProcessParameters64 struct {
 }
 
 type winLUID struct {
-	_        structs.HostLayout
+	_ structs.HostLayout
 	LowPart  winDWord
 	HighPart winLong
 }
 
 // LUID_AND_ATTRIBUTES
 type winLUIDAndAttributes struct {
-	_          structs.HostLayout
+	_ structs.HostLayout
 	Luid       winLUID
 	Attributes winDWord
 }
 
 // TOKEN_PRIVILEGES
 type winTokenPrivileges struct {
-	_              structs.HostLayout
+	_ structs.HostLayout
 	PrivilegeCount winDWord
 	Privileges     [1]winLUIDAndAttributes
 }

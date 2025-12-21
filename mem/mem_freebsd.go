@@ -94,7 +94,7 @@ const (
 
 // Types from vm/vm_param.h
 type xswdev struct {
-	_       structs.HostLayout
+	_ structs.HostLayout
 	Version uint32 // Version is the version
 	Dev     uint64 // Dev is the device identifier
 	Flags   int32  // Flags is the swap flags applied to the device
@@ -105,7 +105,7 @@ type xswdev struct {
 // xswdev11 is a compatibility for under FreeBSD 11
 // sys/vm/swap_pager.c
 type xswdev11 struct {
-	_       structs.HostLayout
+	_ structs.HostLayout
 	Version uint32 // Version is the version
 	Dev     uint32 // Dev is the device identifier
 	Flags   int32  // Flags is the swap flags applied to the device

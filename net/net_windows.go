@@ -582,7 +582,7 @@ const (
 // TCP
 
 type mibTCPRowOwnerPid struct {
-	_            structs.HostLayout
+	_ structs.HostLayout
 	DwState      uint32
 	DwLocalAddr  uint32
 	DwLocalPort  uint32
@@ -611,13 +611,13 @@ func (m *mibTCPRowOwnerPid) convertToConnectionStat() ConnectionStat {
 }
 
 type mibTCPTableOwnerPid struct {
-	_            structs.HostLayout
+	_ structs.HostLayout
 	DwNumEntries uint32
 	Table        [anySize]mibTCPRowOwnerPid
 }
 
 type mibTCP6RowOwnerPid struct {
-	_               structs.HostLayout
+	_ structs.HostLayout
 	UcLocalAddr     [16]byte
 	DwLocalScopeId  uint32
 	DwLocalPort     uint32
@@ -648,7 +648,7 @@ func (m *mibTCP6RowOwnerPid) convertToConnectionStat() ConnectionStat {
 }
 
 type mibTCP6TableOwnerPid struct {
-	_            structs.HostLayout
+	_ structs.HostLayout
 	DwNumEntries uint32
 	Table        [anySize]mibTCP6RowOwnerPid
 }
@@ -661,7 +661,7 @@ type (
 // UDP
 
 type mibUDPRowOwnerPid struct {
-	_           structs.HostLayout
+	_ structs.HostLayout
 	DwLocalAddr uint32
 	DwLocalPort uint32
 	DwOwningPid uint32
@@ -682,13 +682,13 @@ func (m *mibUDPRowOwnerPid) convertToConnectionStat() ConnectionStat {
 }
 
 type mibUDPTableOwnerPid struct {
-	_            structs.HostLayout
+	_ structs.HostLayout
 	DwNumEntries uint32
 	Table        [anySize]mibUDPRowOwnerPid
 }
 
 type mibUDP6RowOwnerPid struct {
-	_              structs.HostLayout
+	_ structs.HostLayout
 	UcLocalAddr    [16]byte
 	DwLocalScopeId uint32
 	DwLocalPort    uint32
@@ -710,7 +710,7 @@ func (m *mibUDP6RowOwnerPid) convertToConnectionStat() ConnectionStat {
 }
 
 type mibUDP6TableOwnerPid struct {
-	_            structs.HostLayout
+	_ structs.HostLayout
 	DwNumEntries uint32
 	Table        [anySize]mibUDP6RowOwnerPid
 }
