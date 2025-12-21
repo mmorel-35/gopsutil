@@ -6,6 +6,7 @@ package mem
 import (
 	"context"
 	"fmt"
+	"structs"
 	"unsafe"
 
 	"golang.org/x/sys/unix"
@@ -23,6 +24,7 @@ func getHwMemsize() (uint64, error) {
 
 // xsw_usage in sys/sysctl.h
 type swapUsage struct {
+	_         structs.HostLayout
 	Total     uint64
 	Avail     uint64
 	Used      uint64
